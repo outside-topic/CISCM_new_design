@@ -1,0 +1,2733 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Membership | CISCM — Design Preview</title>
+    <meta name="description"
+        content="Explore CISCM membership grades, professional development and organizational membership in this proposed page design.">
+    <style>
+        :root {
+            --navy: #102a43;
+            --deep: #0a2034;
+            --gold: #b99248;
+            --ink: #243b50;
+            --muted: #596c7c;
+            --line: #dce4eb;
+            --paper: #f4f7f9;
+            --teal: #147d80;
+            --blue: #2867aa
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 110px
+        }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            font: 16px/1.65 "Segoe UI", Arial, sans-serif;
+            background: white
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        button,
+        input {
+            font: inherit
+        }
+
+        button,
+        a,
+        input,
+        summary {
+            -webkit-tap-highlight-color: transparent
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        summary:focus-visible {
+            outline: 3px solid #d7ad61;
+            outline-offset: 5px
+        }
+
+        button {
+            cursor: pointer
+        }
+
+        .wrap {
+            width: min(1180px, calc(100% - 64px));
+            margin: auto
+        }
+
+        .notice {
+            background: var(--deep);
+            color: #dce7f0;
+            text-align: center;
+            font-size: 11px;
+            letter-spacing: 1.4px;
+            padding: 7px 20px;
+            text-transform: uppercase
+        }
+
+        .notice span {
+            color: #e0ba76
+        }
+
+        .header {
+            background: #fff;
+            border-bottom: 1px solid var(--line);
+            position: sticky;
+            top: 0;
+            z-index: 20
+        }
+
+        .nav {
+            height: 88px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .brandmark {
+            width: 43px;
+            height: 49px;
+            background: var(--navy);
+            clip-path: polygon(0 0, 100% 0, 100% 72%, 50% 100%, 0 72%);
+            color: #dfbc77;
+            display: grid;
+            place-items: center;
+            font-size: 23px
+        }
+
+        .brandname {
+            display: block;
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: 2px;
+            color: var(--navy)
+        }
+
+        .brand small {
+            font-size: 8px;
+            line-height: 1.3;
+            display: block;
+            letter-spacing: 1.05px;
+            text-transform: uppercase;
+            margin-top: 5px
+        }
+
+        .links {
+            display: flex;
+            align-items: center;
+            gap: 27px;
+            font-size: 13px;
+            font-weight: 600
+        }
+
+        .links a:hover {
+            color: var(--blue)
+        }
+
+        .links .active {
+            color: var(--blue);
+            position: relative
+        }
+
+        .links .active:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -32px;
+            height: 3px;
+            background: var(--gold)
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            border: 1px solid var(--navy);
+            background: var(--navy);
+            color: #fff;
+            padding: 13px 21px;
+            font-size: 13px;
+            font-weight: 650;
+            border-radius: 4px;
+            transition: background .2s, transform .2s
+        }
+
+        .btn:hover {
+            background: #234c70;
+            transform: translateY(-2px)
+        }
+
+        .btn.light {
+            background: white;
+            color: var(--navy);
+            border-color: #becbd5
+        }
+
+        .btn.light:hover {
+            background: #f0f4f8
+        }
+
+        .btn.gold {
+            background: #d5b16d;
+            border-color: #d5b16d;
+            color: var(--deep)
+        }
+
+        .btn.small {
+            padding: 10px 16px
+        }
+
+        .menu {
+            display: none;
+            background: none;
+            border: 1px solid var(--line);
+            padding: 7px 12px;
+            border-radius: 4px;
+            color: var(--navy)
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(110deg, #f4f7f9, #fff 65%)
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 32px;
+            align-items: center;
+            padding-top: 68px;
+            padding-bottom: 67px
+        }
+
+        .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 2.2px;
+            font-size: 11px;
+            font-weight: 750;
+            color: var(--teal);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 20px
+        }
+
+        .eyebrow:before {
+            content: "";
+            width: 26px;
+            height: 2px;
+            background: var(--gold)
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        p {
+            margin-top: 0
+        }
+
+        h1 {
+            font-family: Georgia, serif;
+            font-size: clamp(38px, 4.2vw, 57px);
+            line-height: 1.12;
+            font-weight: 500;
+            letter-spacing: -1.5px;
+            color: var(--navy);
+            margin-bottom: 24px
+        }
+
+        h1 em {
+            font-style: normal;
+            color: var(--teal)
+        }
+
+        .lead {
+            font-size: 16px;
+            line-height: 1.85;
+            color: var(--muted);
+            max-width: 520px;
+            margin-bottom: 29px
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px
+        }
+
+        .hero-note {
+            font-size: 11px;
+            color: var(--muted);
+            margin: 22px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 9px
+        }
+
+        .hero-note b {
+            color: var(--teal);
+            font-size: 15px
+        }
+
+        .credential-art {
+            position: relative;
+            display: grid;
+            place-items: center;
+            min-height: 400px
+        }
+
+        .orbit {
+            position: absolute;
+            width: 365px;
+            height: 365px;
+            border: 1px solid #d6e2e9;
+            border-radius: 50%
+        }
+
+        .orbit:before {
+            content: "";
+            position: absolute;
+            inset: 30px;
+            border: 1px dashed #d6e2e9;
+            border-radius: 50%
+        }
+
+        .orbit:after {
+            content: "";
+            position: absolute;
+            inset: -30px;
+            border: 1px solid #e4ebef;
+            border-radius: 50%
+        }
+
+        .cert {
+            z-index: 1;
+            position: relative;
+            width: 300px;
+            background: white;
+            border: 1px solid #d5dfe7;
+            border-radius: 9px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 24px 60px #18375015;
+            transform: rotate(-5deg)
+        }
+
+        .cert-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--navy);
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .cert-top small {
+            font-size: 8px;
+            letter-spacing: 1px;
+            color: #667b8b
+        }
+
+        .seal {
+            width: 145px;
+            height: 145px;
+            margin: 25px auto 21px;
+            border: 1px solid #ceb273;
+            border-radius: 50%;
+            padding: 9px;
+            background: radial-gradient(circle, #fcfaf5, #fff)
+        }
+
+        .seal-inner {
+            border: 1px dashed #c9ad72;
+            border-radius: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: var(--navy)
+        }
+
+        .seal-inner small {
+            font-size: 8px;
+            letter-spacing: 2px
+        }
+
+        .seal-inner strong {
+            font: 700 31px Georgia, serif;
+            margin: 3px 0
+        }
+
+        .seal-inner span {
+            color: #ab843a;
+            font-size: 18px
+        }
+
+        .cert-title {
+            font-family: Georgia, serif;
+            font-size: 19px;
+            line-height: 1.4;
+            color: var(--navy);
+            margin-bottom: 8px
+        }
+
+        .cert-caption {
+            font-size: 8px;
+            letter-spacing: 1.5px;
+            color: var(--muted);
+            text-transform: uppercase
+        }
+
+        .cert-bottom {
+            border-top: 1px solid var(--line);
+            padding-top: 15px;
+            margin-top: 20px;
+            font-size: 9px;
+            color: var(--muted);
+            letter-spacing: .5px
+        }
+
+        .float-label {
+            position: absolute;
+            z-index: 2;
+            background: var(--navy);
+            color: white;
+            border-radius: 5px;
+            padding: 12px 19px;
+            font-size: 11px;
+            box-shadow: 0 10px 25px #102a4320;
+            bottom: 23px;
+            right: 4px;
+            display: flex;
+            gap: 12px;
+            align-items: center
+        }
+
+        .float-label span {
+            font-size: 22px;
+            color: #d8b979
+        }
+
+        .float-label small {
+            display: block;
+            font-size: 9px;
+            color: #c3d1dc
+        }
+
+        .principles {
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            background: white
+        }
+
+        .principles .wrap {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr)
+        }
+
+        .principle {
+            padding: 21px 25px;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            font-size: 12px;
+            font-weight: 650
+        }
+
+        .principle:not(:last-child) {
+            border-right: 1px solid var(--line)
+        }
+
+        .principle span {
+            font-size: 20px;
+            color: var(--gold)
+        }
+
+        section {
+            padding: 76px 0
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 35px;
+            align-items: flex-end;
+            margin-bottom: 32px
+        }
+
+        .section-head h2 {
+            margin-bottom: 0
+        }
+
+        .section-head p {
+            max-width: 370px;
+            font-size: 14px;
+            color: var(--muted);
+            margin: 0
+        }
+
+        h2 {
+            font-family: Georgia, serif;
+            font-size: 36px;
+            font-weight: 500;
+            color: var(--navy);
+            letter-spacing: -.6px;
+            line-height: 1.2;
+            margin-bottom: 18px
+        }
+
+        .section-head .eyebrow {
+            margin-bottom: 12px
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px
+        }
+
+        .card {
+            border: 1px solid var(--line);
+            border-top: 4px solid var(--accent);
+            border-radius: 7px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            transition: transform .2s, box-shadow .2s
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 18px 35px #102a430c
+        }
+
+        .card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px
+        }
+
+        .initial {
+            width: 54px;
+            height: 57px;
+            clip-path: polygon(0 0, 100% 0, 100% 77%, 50% 100%, 0 77%);
+            background: var(--tint);
+            color: var(--accent);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: 15px
+        }
+
+        .tag {
+            font-size: 9px;
+            font-weight: 750;
+            letter-spacing: 1px;
+            color: var(--accent);
+            text-transform: uppercase
+        }
+
+        .card h3 {
+            font-family: Georgia, serif;
+            color: var(--navy);
+            font-size: 25px;
+            font-weight: 500;
+            line-height: 1.25;
+            min-height: 64px;
+            margin-bottom: 15px
+        }
+
+        .card>p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.8;
+            min-height: 70px
+        }
+
+        .best {
+            border-top: 1px solid var(--line);
+            padding: 19px 0 22px;
+            font-size: 12px;
+            flex: 1
+        }
+
+        .best small {
+            display: block;
+            font-size: 9px;
+            letter-spacing: 1px;
+            color: var(--muted);
+            font-weight: 750;
+            margin-bottom: 6px
+        }
+
+        .card .btn {
+            width: 100%;
+            background: white;
+            color: var(--navy);
+            border-color: #cbd6df;
+            justify-content: space-between
+        }
+
+        .card .btn:hover {
+            background: var(--navy);
+            color: white
+        }
+
+        .info {
+            margin-top: 25px;
+            padding: 17px 22px;
+            background: var(--paper);
+            border-radius: 5px;
+            display: flex;
+            gap: 13px;
+            align-items: flex-start;
+            font-size: 12px;
+            color: var(--muted)
+        }
+
+        .info strong {
+            color: var(--navy)
+        }
+
+        .info .icon {
+            color: var(--teal);
+            font-size: 18px;
+            line-height: 1.3
+        }
+
+        .grey {
+            background: var(--paper)
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+            background: white;
+            border: 1px solid var(--line);
+            border-radius: 7px
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 13px;
+            text-align: left
+        }
+
+        th,
+        td {
+            padding: 21px 23px;
+            vertical-align: top;
+            border-bottom: 1px solid var(--line);
+            border-right: 1px solid #edf1f4
+        }
+
+        thead th {
+            background: var(--navy);
+            color: white;
+            font-size: 15px
+        }
+
+        thead th small {
+            display: block;
+            font-size: 10px;
+            letter-spacing: .2px;
+            font-weight: 400;
+            color: #c6d5e0;
+            margin-top: 4px
+        }
+
+        tbody th {
+            font-size: 12px;
+            color: var(--navy);
+            width: 21%;
+            background: #fbfcfd
+        }
+
+        tbody tr:last-child>* {
+            border-bottom: 0
+        }
+
+        td {
+            width: 26.33%
+        }
+
+        .detail-heading {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 30px
+        }
+
+        .detail-heading .eyebrow {
+            justify-content: center
+        }
+
+        .detail-heading p {
+            color: var(--muted);
+            font-size: 14px
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            padding: 6px;
+            width: fit-content;
+            margin: 0 auto 36px;
+            border-radius: 6px
+        }
+
+        .tab {
+            background: transparent;
+            border: 0;
+            border-radius: 4px;
+            color: var(--muted);
+            padding: 11px 22px;
+            font-size: 12px;
+            font-weight: 650
+        }
+
+        .tab[aria-selected=true] {
+            background: var(--navy);
+            color: white;
+            box-shadow: 0 3px 8px #102a431a
+        }
+
+        .panel {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: .75fr 1.25fr
+        }
+
+        .panel[hidden] {
+            display: none
+        }
+
+        .panel-side {
+            background: var(--navy);
+            padding: 36px;
+            color: white
+        }
+
+        .panel-side .tag {
+            color: #dcc18f
+        }
+
+        .panel-side h3 {
+            font-family: Georgia, serif;
+            font-size: 29px;
+            line-height: 1.3;
+            font-weight: 500;
+            margin: 16px 0 20px
+        }
+
+        .panel-side p {
+            color: #c4d2dd;
+            font-size: 13px
+        }
+
+        .panel-side .btn {
+            margin-top: 10px
+        }
+
+        .panel-main {
+            padding: 34px 38px
+        }
+
+        .panel-main h4 {
+            font-size: 14px;
+            color: var(--navy);
+            margin-bottom: 12px
+        }
+
+        .panel-main p,
+        .panel-main li {
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 0 0 24px
+        }
+
+        li {
+            padding: 3px 0
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-bottom: 25px
+        }
+
+        .chip {
+            border: 1px solid var(--line);
+            background: var(--paper);
+            border-radius: 4px;
+            padding: 6px 10px;
+            font-size: 11px
+        }
+
+        .assessment {
+            border-left: 3px solid var(--gold);
+            padding: 3px 0 3px 16px
+        }
+
+        .assessment p {
+            margin: 0
+        }
+
+        .journey {
+            background: var(--navy);
+            color: white
+        }
+
+        .journey h2 {
+            color: white
+        }
+
+        .journey .eyebrow {
+            color: #d8bb86
+        }
+
+        .journey .section-head p {
+            color: #c0d0dc
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 40px
+        }
+
+        .step-number {
+            font: 28px Georgia, serif;
+            color: #dbc18e;
+            border-bottom: 1px solid #ffffff25;
+            padding-bottom: 16px;
+            margin-bottom: 21px;
+            display: flex;
+            justify-content: space-between
+        }
+
+        .step-number span {
+            color: #7892a6;
+            font: 20px Arial
+        }
+
+        .step h3 {
+            font-size: 15px;
+            margin-bottom: 10px;
+            color: white
+        }
+
+        .step p {
+            font-size: 12px;
+            color: #c2d0db;
+            margin: 0
+        }
+
+        .journey-note {
+            font-size: 11px;
+            color: #c2d0db;
+            border-top: 1px solid #ffffff25;
+            padding-top: 22px;
+            margin: 33px 0 0
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: .65fr 1.35fr;
+            gap: 70px
+        }
+
+        .faq-intro p {
+            font-size: 14px;
+            color: var(--muted)
+        }
+
+        .text-link {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--teal)
+        }
+
+        details {
+            border-bottom: 1px solid var(--line)
+        }
+
+        details:first-child {
+            border-top: 1px solid var(--line)
+        }
+
+        summary {
+            cursor: pointer;
+            list-style: none;
+            padding: 21px 32px 21px 0;
+            font-size: 14px;
+            font-weight: 650;
+            color: var(--navy);
+            position: relative
+        }
+
+        summary::-webkit-details-marker {
+            display: none
+        }
+
+        summary:after {
+            content: "+";
+            position: absolute;
+            right: 4px;
+            top: 18px;
+            font-size: 23px;
+            font-weight: 400;
+            color: var(--teal)
+        }
+
+        details[open] summary:after {
+            content: "−"
+        }
+
+        details p {
+            font-size: 13px;
+            color: var(--muted);
+            padding-right: 28px;
+            margin-bottom: 22px
+        }
+
+        .cta {
+            padding: 0 0 70px
+        }
+
+        .cta-inner {
+            border: 1px solid #d8c59e;
+            border-radius: 7px;
+            background: #faf8f2;
+            padding: 37px 42px;
+            display: flex;
+            gap: 35px;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .cta h2 {
+            font-size: 29px;
+            margin-bottom: 8px
+        }
+
+        .cta p {
+            font-size: 13px;
+            color: var(--muted);
+            margin: 0
+        }
+
+        footer {
+            background: var(--deep);
+            color: #b4c5d2;
+            padding: 45px 0 24px
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 65px
+        }
+
+        footer .brandname {
+            color: white;
+            font-size: 24px
+        }
+
+        footer .brand small {
+            color: #b4c5d2
+        }
+
+        footer p {
+            max-width: 440px;
+            font-size: 11px;
+            line-height: 1.8;
+            margin: 18px 0
+        }
+
+        footer h4 {
+            font-size: 11px;
+            color: white;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1.4px
+        }
+
+        footer a:not(.brand) {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 8px
+        }
+
+        footer a:hover {
+            color: white
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #ffffff20;
+            padding-top: 20px;
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            font-size: 10px
+        }
+
+        .skip {
+            position: fixed;
+            left: 10px;
+            top: -100px;
+            background: white;
+            padding: 10px;
+            z-index: 100
+        }
+
+        .skip:focus {
+            top: 10px
+        }
+
+        @media(min-width:1500px) {
+            .hero-grid {
+                padding-top: 85px;
+                padding-bottom: 85px
+            }
+        }
+
+        @media(max-width:1000px) {
+            .links {
+                gap: 15px;
+                font-size: 12px
+            }
+
+            .links .btn {
+                display: none
+            }
+
+            .hero-grid {
+                grid-template-columns: 1.15fr .85fr
+            }
+
+            .credential-art {
+                transform: scale(.86)
+            }
+
+            .card {
+                padding: 22px
+            }
+
+            .tag {
+                font-size: 8px
+            }
+
+            .panel {
+                grid-template-columns: .8fr 1.2fr
+            }
+
+            .panel-main {
+                padding: 28px
+            }
+
+            .faq-grid {
+                gap: 40px
+            }
+        }
+
+        @media(max-width:760px) {
+            .wrap {
+                width: calc(100% - 36px)
+            }
+
+            .nav {
+                height: 74px
+            }
+
+            .brandname {
+                font-size: 24px
+            }
+
+            .brand small {
+                font-size: 7px
+            }
+
+            .brandmark {
+                width: 36px;
+                height: 43px
+            }
+
+            .menu {
+                display: block
+            }
+
+            .links {
+                display: none;
+                position: absolute;
+                top: 74px;
+                left: 0;
+                right: 0;
+                background: white;
+                box-shadow: 0 10px 15px #102a4310;
+                padding: 20px;
+                flex-direction: column;
+                align-items: stretch
+            }
+
+            .links.open {
+                display: flex
+            }
+
+            .links .active:after {
+                display: none
+            }
+
+            .links a {
+                padding: 7px
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                padding: 45px 0 40px;
+                gap: 10px
+            }
+
+            h1 {
+                font-size: 43px
+            }
+
+            .lead {
+                font-size: 14px
+            }
+
+            .credential-art {
+                min-height: 365px;
+                transform: scale(.9);
+                margin: -5px 0 -15px
+            }
+
+            .float-label {
+                right: 0;
+                bottom: 20px
+            }
+
+            .principles .wrap {
+                grid-template-columns: 1fr
+            }
+
+            .principle {
+                padding: 13px 4px;
+                font-size: 11px
+            }
+
+            .principle:not(:last-child) {
+                border-right: 0;
+                border-bottom: 1px solid var(--line)
+            }
+
+            section {
+                padding: 50px 0
+            }
+
+            .section-head {
+                display: block
+            }
+
+            .section-head p {
+                margin-top: 16px;
+                max-width: 100%
+            }
+
+            h2 {
+                font-size: 31px
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+                gap: 18px
+            }
+
+            .card h3,
+            .card>p {
+                min-height: 0
+            }
+
+            .card {
+                padding: 25px
+            }
+
+            .tag {
+                font-size: 9px
+            }
+
+            .card-top {
+                margin-bottom: 18px
+            }
+
+            .table-scroll table {
+                min-width: 700px
+            }
+
+            .tabs {
+                width: 100%;
+                gap: 3px
+            }
+
+            .tab {
+                flex: 1;
+                padding: 10px 6px;
+                font-size: 11px
+            }
+
+            .tab span {
+                display: none
+            }
+
+            .panel {
+                grid-template-columns: 1fr
+            }
+
+            .panel-side {
+                padding: 28px
+            }
+
+            .panel-side h3 {
+                font-size: 27px
+            }
+
+            .panel-main {
+                padding: 28px
+            }
+
+            .steps {
+                grid-template-columns: 1fr 1fr;
+                gap: 25px
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+                gap: 22px
+            }
+
+            .cta {
+                padding-bottom: 45px
+            }
+
+            .cta-inner {
+                display: block;
+                padding: 27px
+            }
+
+            .cta .btn {
+                margin-top: 20px
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 28px
+            }
+
+            .footer-about {
+                grid-column: 1/-1
+            }
+
+            .footer-bottom {
+                display: block
+            }
+
+            .footer-bottom span {
+                display: block;
+                margin-bottom: 7px
+            }
+
+            .notice {
+                font-size: 9px;
+                letter-spacing: 1px
+            }
+
+            .info {
+                padding: 15px
+            }
+
+            .hero .btn {
+                padding: 12px 16px
+            }
+
+            .orbit {
+                width: 310px;
+                height: 310px
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            html {
+                scroll-behavior: auto
+            }
+
+            * {
+                transition: none !important
+            }
+        }
+
+        .membership-hero {
+            background: var(--navy);
+            color: white;
+            position: relative;
+            overflow: hidden
+        }
+
+        .membership-hero .hero-grid {
+            padding-top: 70px;
+            padding-bottom: 75px
+        }
+
+        .membership-hero h1 {
+            color: white;
+            font-size: 58px
+        }
+
+        .membership-hero h1 em {
+            color: #dfbe7e
+        }
+
+        .membership-hero .eyebrow {
+            color: #d7bb88
+        }
+
+        .membership-hero .lead {
+            color: #c5d5e0
+        }
+
+        .membership-hero .hero-note {
+            color: #c5d5e0
+        }
+
+        .membership-hero .btn.light {
+            background: transparent;
+            color: white;
+            border-color: #647c90
+        }
+
+        .membership-hero .btn.light:hover {
+            background: #ffffff10
+        }
+
+        .member-art {
+            position: relative;
+            min-height: 370px;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .network-art {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: .32
+        }
+
+        .member-pass {
+            width: 355px;
+            border-radius: 12px;
+            background: linear-gradient(125deg, #fdfbf5, #eee7d7);
+            color: var(--navy);
+            padding: 29px;
+            transform: rotate(-7deg);
+            box-shadow: 0 30px 50px #0003;
+            position: relative;
+            z-index: 1;
+            border: 1px solid #f0e4c8
+        }
+
+        .pass-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #b49e6c55;
+            padding-bottom: 18px
+        }
+
+        .pass-top strong {
+            font-size: 23px;
+            letter-spacing: 2px
+        }
+
+        .pass-top small {
+            font-size: 8px;
+            letter-spacing: 1.5px;
+            text-align: right
+        }
+
+        .pass-center {
+            padding: 30px 0 32px
+        }
+
+        .pass-center small {
+            display: block;
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #6e674f
+        }
+
+        .pass-center h3 {
+            font: 29px/1.2 Georgia, serif;
+            margin: 10px 0 0
+        }
+
+        .pass-bottom {
+            border-top: 1px solid #b49e6c55;
+            padding-top: 15px;
+            font-size: 9px;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between
+        }
+
+        .pass-stamp {
+            font-size: 34px;
+            color: #a58038
+        }
+
+        .art-note {
+            position: absolute;
+            bottom: 9px;
+            right: 0;
+            background: #1b405d;
+            padding: 13px 21px;
+            border-left: 3px solid var(--gold);
+            font-size: 11px;
+            z-index: 2;
+            box-shadow: 0 10px 30px #0002
+        }
+
+        .art-note strong {
+            display: block;
+            color: #e7c98e;
+            font-size: 12px
+        }
+
+        .section-index {
+            background: #fff;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .index-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 17px 0;
+            font-size: 12px
+        }
+
+        .index-inner span {
+            color: var(--muted);
+            font-size: 11px
+        }
+
+        .index-links {
+            display: flex;
+            gap: 30px;
+            font-weight: 650
+        }
+
+        .index-links a:hover {
+            color: var(--teal)
+        }
+
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0 32px
+        }
+
+        .benefit {
+            padding: 24px 0;
+            border-top: 1px solid var(--line);
+            display: flex;
+            gap: 16px
+        }
+
+        .benefit-icon {
+            flex: 0 0 39px;
+            height: 39px;
+            border: 1px solid #d4e6e5;
+            color: var(--teal);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font: 13px Georgia, serif
+        }
+
+        .benefit h3 {
+            font-size: 15px;
+            margin: 0 0 8px;
+            color: var(--navy)
+        }
+
+        .benefit p {
+            font-size: 12px;
+            color: var(--muted);
+            margin: 0
+        }
+
+        .benefit-note {
+            font-size: 11px;
+            color: var(--muted);
+            margin: 15px 0 0
+        }
+
+        .grades {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px
+        }
+
+        .grade {
+            padding: 24px 22px;
+            text-align: left;
+            border: 1px solid var(--line);
+            border-top: 3px solid var(--accent);
+            border-radius: 6px;
+            background: white;
+            color: var(--ink);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative
+        }
+
+        .grade[aria-selected=true] {
+            box-shadow: 0 7px 24px #102a4310;
+            outline: 2px solid var(--accent);
+            outline-offset: -2px
+        }
+
+        .grade-num {
+            font-size: 10px;
+            letter-spacing: 1.2px;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 25px
+        }
+
+        .grade-title {
+            font: 23px/1.2 Georgia, serif;
+            color: var(--navy);
+            min-height: 57px;
+            margin-bottom: 15px
+        }
+
+        .grade-summary {
+            font-size: 12px;
+            line-height: 1.7;
+            color: var(--muted);
+            flex: 1;
+            margin-bottom: 23px
+        }
+
+        .grade-link {
+            font-size: 11px;
+            font-weight: 700;
+            border-top: 1px solid var(--line);
+            padding-top: 14px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between
+        }
+
+        .grade[aria-selected=true] .grade-link {
+            color: var(--accent)
+        }
+
+        .grade-panel {
+            margin-top: 25px;
+            background: white;
+            border: 1px solid var(--line);
+            border-radius: 7px;
+            padding: 33px;
+            display: grid;
+            grid-template-columns: 1.05fr 1fr 1fr;
+            gap: 36px
+        }
+
+        .grade-panel[hidden] {
+            display: none
+        }
+
+        .grade-panel h3 {
+            font: 25px Georgia, serif;
+            color: var(--navy);
+            margin-bottom: 12px
+        }
+
+        .grade-panel h4 {
+            font-size: 12px;
+            margin-bottom: 10px
+        }
+
+        .grade-panel p,
+        .grade-panel li {
+            font-size: 12px;
+            color: var(--muted)
+        }
+
+        .grade-panel ul {
+            margin-bottom: 0
+        }
+
+        .grade-panel .eyebrow {
+            font-size: 9px;
+            margin-bottom: 14px
+        }
+
+        .grade-panel .text-link {
+            display: inline-block;
+            margin-top: 7px;
+            font-size: 12px
+        }
+
+        .policy-note {
+            font-size: 11px;
+            color: var(--muted);
+            margin: 18px 0 0;
+            line-height: 1.8
+        }
+
+        .competencies {
+            display: grid;
+            grid-template-columns: .8fr 1.2fr;
+            gap: 65px
+        }
+
+        .competency-intro p {
+            font-size: 14px;
+            color: var(--muted)
+        }
+
+        .dimension {
+            display: flex;
+            gap: 19px;
+            border-top: 1px solid var(--line);
+            padding: 17px 0
+        }
+
+        .dimension:last-child {
+            border-bottom: 1px solid var(--line)
+        }
+
+        .dimension>span {
+            font: 17px Georgia, serif;
+            color: var(--gold);
+            padding-top: 2px
+        }
+
+        .dimension h3 {
+            font-size: 13px;
+            margin: 0 0 4px;
+            color: var(--navy)
+        }
+
+        .dimension p {
+            font-size: 12px;
+            margin: 0;
+            color: var(--muted)
+        }
+
+        .cpd-section {
+            background: var(--navy);
+            color: white
+        }
+
+        .cpd-section h2 {
+            color: white
+        }
+
+        .cpd-section .eyebrow {
+            color: #dec28b
+        }
+
+        .cpd-top {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px
+        }
+
+        .cpd-top p {
+            font-size: 13px;
+            color: #c5d4df
+        }
+
+        .cpd-numbers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px
+        }
+
+        .cpd-number {
+            border-left: 1px solid #ffffff30;
+            padding-left: 20px
+        }
+
+        .cpd-number strong {
+            display: block;
+            font: 43px Georgia, serif;
+            color: #e1bf7e
+        }
+
+        .cpd-number span {
+            display: block;
+            font-size: 11px;
+            color: #cfdae3;
+            line-height: 1.6;
+            margin-top: 7px
+        }
+
+        .cpd-note {
+            grid-column: 1/-1;
+            font-size: 10px !important;
+            margin: 4px 0 0
+        }
+
+        .cycle {
+            margin-top: 38px;
+            background: #173851;
+            border: 1px solid #ffffff20;
+            border-radius: 6px;
+            padding: 9px
+        }
+
+        .cycle-tabs {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 5px
+        }
+
+        .cycle-tab {
+            border: 0;
+            background: transparent;
+            color: #c2d1dd;
+            padding: 16px 8px;
+            border-radius: 4px;
+            font-size: 12px
+        }
+
+        .cycle-tab small {
+            display: block;
+            font: 17px Georgia, serif;
+            color: #d5b878;
+            margin-bottom: 4px
+        }
+
+        .cycle-tab[aria-selected=true] {
+            background: #f4eddf;
+            color: var(--navy)
+        }
+
+        .cycle-tab[aria-selected=true] small {
+            color: #927133
+        }
+
+        .cycle-panel {
+            padding: 26px 24px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 25px
+        }
+
+        .cycle-panel h3 {
+            font: 24px Georgia, serif;
+            margin: 0;
+            color: #e2c58e;
+            min-width: 100px
+        }
+
+        .cycle-panel p {
+            font-size: 13px;
+            margin: 0;
+            color: #d2dee7
+        }
+
+        .cpd-links {
+            margin-top: 22px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px
+        }
+
+        .cpd-section details {
+            border-color: #ffffff25
+        }
+
+        .cpd-section summary {
+            color: #e4edf3;
+            font-size: 12px
+        }
+
+        .cpd-section details p {
+            color: #c5d4df;
+            font-size: 12px
+        }
+
+        .organization-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px
+        }
+
+        .organization {
+            background: white;
+            padding: 28px;
+            border: 1px solid var(--line);
+            border-radius: 6px
+        }
+
+        .organization .org-icon {
+            color: var(--gold);
+            font: 28px Georgia, serif;
+            display: block;
+            margin-bottom: 18px
+        }
+
+        .organization h3 {
+            font: 23px/1.3 Georgia, serif;
+            color: var(--navy);
+            min-height: 60px;
+            margin-bottom: 13px
+        }
+
+        .organization p {
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 22px
+        }
+
+        .organization a {
+            font-size: 12px
+        }
+
+        .conduct {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 65px
+        }
+
+        .conduct p {
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        .obligations {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px
+        }
+
+        .obligation {
+            border-left: 2px solid var(--gold);
+            padding-left: 15px;
+            font-size: 12px;
+            color: var(--muted)
+        }
+
+        .obligation strong {
+            display: block;
+            color: var(--navy);
+            font-size: 13px;
+            margin-bottom: 4px
+        }
+
+        .application {
+            background: #edf4f3
+        }
+
+        .application-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 65px;
+            align-items: center
+        }
+
+        .application p {
+            font-size: 14px;
+            color: var(--muted)
+        }
+
+        .application-steps {
+            counter-reset: application
+        }
+
+        .application-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            padding: 18px 0;
+            border-bottom: 1px solid #cfdddb
+        }
+
+        .application-step:first-child {
+            border-top: 1px solid #cfdddb
+        }
+
+        .application-step:before {
+            counter-increment: application;
+            content: '0' counter(application);
+            font: 23px Georgia, serif;
+            color: var(--teal)
+        }
+
+        .application-step strong {
+            display: block;
+            font-size: 14px;
+            color: var(--navy)
+        }
+
+        .application-step p {
+            font-size: 12px;
+            margin: 5px 0 0
+        }
+
+        .application .actions {
+            margin-top: 25px
+        }
+
+        .source-note {
+            font-size: 10px !important;
+            margin-top: 18px;
+            color: var(--muted)
+        }
+
+        .faq-grid {
+            gap: 55px
+        }
+
+        @media(max-width:1000px) {
+            .grades {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .grade-title {
+                min-height: 0
+            }
+
+            .grade-summary {
+                min-height: 42px
+            }
+
+            .cpd-top {
+                gap: 30px
+            }
+
+            .grade-panel {
+                gap: 23px
+            }
+
+            .competencies {
+                gap: 35px
+            }
+
+            .conduct {
+                gap: 35px
+            }
+        }
+
+        @media(max-width:760px) {
+            .membership-hero h1 {
+                font-size: 43px
+            }
+
+            .membership-hero .hero-grid {
+                padding-top: 43px;
+                padding-bottom: 42px
+            }
+
+            .member-art {
+                min-height: 320px;
+                margin-top: 15px
+            }
+
+            .member-pass {
+                width: 290px;
+                padding: 24px
+            }
+
+            .pass-center {
+                padding: 24px 0
+            }
+
+            .pass-center h3 {
+                font-size: 26px
+            }
+
+            .art-note {
+                font-size: 9px;
+                bottom: 0
+            }
+
+            .art-note strong {
+                font-size: 11px
+            }
+
+            .index-inner {
+                display: block
+            }
+
+            .index-inner>span {
+                display: none
+            }
+
+            .index-links {
+                gap: 22px;
+                overflow-x: auto;
+                white-space: nowrap;
+                font-size: 11px
+            }
+
+            .benefit-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0 20px
+            }
+
+            .benefit {
+                gap: 10px
+            }
+
+            .benefit-icon {
+                flex-basis: 29px;
+                height: 29px;
+                font-size: 11px
+            }
+
+            .benefit h3 {
+                font-size: 13px
+            }
+
+            .benefit p {
+                font-size: 11px
+            }
+
+            .grades {
+                gap: 12px
+            }
+
+            .grade {
+                padding: 18px 15px
+            }
+
+            .grade-title {
+                font-size: 20px;
+                min-height: 48px
+            }
+
+            .grade-summary {
+                font-size: 11px;
+                min-height: 74px
+            }
+
+            .grade-num {
+                font-size: 9px;
+                margin-bottom: 18px
+            }
+
+            .grade-panel {
+                grid-template-columns: 1fr;
+                padding: 25px;
+                gap: 20px
+            }
+
+            .grade-panel p {
+                margin-bottom: 7px
+            }
+
+            .competencies,
+            .conduct,
+            .application-grid {
+                grid-template-columns: 1fr;
+                gap: 28px
+            }
+
+            .cpd-top {
+                grid-template-columns: 1fr;
+                gap: 22px
+            }
+
+            .cpd-number strong {
+                font-size: 36px
+            }
+
+            .cpd-numbers {
+                gap: 10px
+            }
+
+            .cpd-number {
+                padding-left: 13px
+            }
+
+            .cycle-tabs {
+                grid-template-columns: repeat(3, 1fr)
+            }
+
+            .cycle-tab {
+                padding: 11px 5px
+            }
+
+            .cycle-panel {
+                display: block;
+                padding: 20px 13px
+            }
+
+            .cycle-panel h3 {
+                margin-bottom: 12px
+            }
+
+            .organization-cards {
+                grid-template-columns: 1fr
+            }
+
+            .organization h3 {
+                min-height: 0
+            }
+
+            .obligations {
+                gap: 20px
+            }
+
+            .policy-note {
+                font-size: 10px
+            }
+        }
+    </style>
+</head>
+
+<body><a class="skip" href="#main">Skip to content</a>
+    <div class="notice"><span>Design concept</span> &nbsp; / &nbsp; CISCM professional membership</div>
+    <style>
+        [hidden] {
+            display: none !important
+        }
+    </style>
+    <header class="header">
+        <div class="wrap nav"><a class="brand" href="#main" aria-label="CISCM membership home"><span class="brandmark"
+                    aria-hidden="true">✦</span><span><span class="brandname">CISCM</span><small>Chartered Institute
+                        of<br>Supply Chain Management</small></span></a><button class="menu" aria-expanded="false"
+                aria-controls="navigation">Menu</button>
+            <nav class="links" id="navigation" aria-label="Main navigation"><a href="https://ciscm.us/" target="_blank"
+                    rel="noopener">About CISCM</a><a href="https://ciscm.us/credentials" target="_blank"
+                    rel="noopener">Credentials</a><a class="active" href="#grades">Membership</a><a
+                    href="#cpd">Professional development</a><a class="btn small" href="#apply">Join CISCM <span
+                        aria-hidden="true">→</span></a></nav>
+        </div>
+    </header>
+    <main id="main">
+        <div class="membership-hero">
+            <div class="wrap hero-grid">
+                <div>
+                    <p class="eyebrow">Belong. Develop. Contribute.</p>
+                    <h1>A profession you<br>help shape.<br><em>A community you<br>grow with.</em></h1>
+                    <p class="lead">Build your professional standing through ethical practice, continuous learning and
+                        meaningful contribution to the supply chain profession.</p>
+                    <div class="actions"><a class="btn gold" href="#grades">Explore membership grades <span
+                                aria-hidden="true">↓</span></a><a class="btn light" href="#apply">How to join</a></div>
+                    <p class="hero-note">For individuals and organizations committed to professional practice.</p>
+                </div>
+                <div class="member-art" aria-label="Illustrative CISCM membership card"><svg class="network-art"
+                        viewBox="0 0 500 400" aria-hidden="true">
+                        <g fill="none" stroke="#92b2c7" stroke-width="1">
+                            <circle cx="250" cy="200" r="175" />
+                            <ellipse cx="250" cy="200" rx="115" ry="175" />
+                            <ellipse cx="250" cy="200" rx="45" ry="175" />
+                            <ellipse cx="250" cy="200" rx="175" ry="68" />
+                            <path d="M75 200h350M102 108h296M102 292h296" />
+                        </g>
+                        <g fill="#dabb7b">
+                            <circle cx="102" cy="108" r="5" />
+                            <circle cx="398" cy="292" r="5" />
+                            <circle cx="425" cy="200" r="5" />
+                            <circle cx="250" cy="25" r="5" />
+                            <circle cx="75" cy="200" r="5" />
+                        </g>
+                    </svg>
+                    <div class="member-pass">
+                        <div class="pass-top"><strong>CISCM</strong><small>PROFESSIONAL<br>MEMBERSHIP</small></div>
+                        <div class="pass-center"><small>Continuing professional standing</small>
+                            <h3>Knowledge connects us.<br>Contribution defines us.</h3>
+                        </div>
+                        <div class="pass-bottom"><span>LEARN · PRACTISE · CONTRIBUTE</span><span class="pass-stamp"
+                                aria-hidden="true">✦</span></div>
+                        <div style="font-size:8px;color:#6e674f;margin-top:12px">Illustrative membership card design
+                        </div>
+                    </div>
+                    <div class="art-note"><strong>Professional standing, maintained.</strong>Through competence, conduct
+                        and contribution.</div>
+                </div>
+            </div>
+        </div>
+        <div class="section-index">
+            <div class="wrap index-inner"><span>EXPLORE MEMBERSHIP</span>
+                <div class="index-links"><a href="#benefits">Why join</a><a href="#grades">Individual grades</a><a
+                        href="#organizations">Organizations</a><a href="#cpd">CPD</a><a href="#faq">FAQs</a></div>
+            </div>
+        </div>
+        <section id="benefits">
+            <div class="wrap">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">Why become a member?</p>
+                        <h2>More ways to develop.<br>More ways to contribute.</h2>
+                    </div>
+                    <p>Connect professional learning with practical contribution—and make your development intentional.
+                    </p>
+                </div>
+                <div class="benefit-grid">
+                    <article class="benefit"><span class="benefit-icon" aria-hidden="true">01</span>
+                        <div>
+                            <h3>Develop with direction</h3>
+                            <p>Use the competency framework to focus your next stage of professional learning.</p>
+                        </div>
+                    </article>
+                    <article class="benefit"><span class="benefit-icon" aria-hidden="true">02</span>
+                        <div>
+                            <h3>Keep your knowledge current</h3>
+                            <p>Explore selected resources, webinars, briefings and learning opportunities.</p>
+                        </div>
+                    </article>
+                    <article class="benefit"><span class="benefit-icon" aria-hidden="true">03</span>
+                        <div>
+                            <h3>Exchange ideas</h3>
+                            <p>Take part in professional dialogue, events, roundtables and working groups.</p>
+                        </div>
+                    </article>
+                    <article class="benefit"><span class="benefit-icon" aria-hidden="true">04</span>
+                        <div>
+                            <h3>Contribute your expertise</h3>
+                            <p>Explore opportunities to mentor, write, speak or contribute to standards.</p>
+                        </div>
+                    </article>
+                    <article class="benefit"><span class="benefit-icon" aria-hidden="true">05</span>
+                        <div>
+                            <h3>Make your standing visible</h3>
+                            <p>Grade recognition and approved digital or directory visibility, where available.</p>
+                        </div>
+                    </article>
+                    <article class="benefit"><span class="benefit-icon" aria-hidden="true">06</span>
+                        <div>
+                            <h3>Prepare for greater responsibility</h3>
+                            <p>Build a development pathway around the capability your next role requires.</p>
+                        </div>
+                    </article>
+                </div>
+                <p class="benefit-note">Specific benefits and opportunities depend on the applicable grade, availability
+                    and current membership terms.</p>
+            </div>
+        </section>
+        <section class="grey" id="grades">
+            <div class="wrap">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">Individual membership</p>
+                        <h2>Standing that grows<br>with your contribution.</h2>
+                    </div>
+                    <p>Explore four membership grades. Select a grade to review its indicative professional profile and
+                        supporting evidence.</p>
+                </div>
+                <div class="grades" role="tablist" aria-label="Individual membership grades"><button class="grade"
+                        style="--accent:#147d80" id="tab-associate" role="tab" aria-controls="panel-associate"
+                        aria-selected="true" tabindex="0" data-grade="associate"><span class="grade-num">01 / MEMBERSHIP
+                            GRADE</span><span class="grade-title">Associate Member</span><span
+                            class="grade-summary">Establish your professional foundation through relevant learning and
+                            practical experience.</span><span class="grade-link">Explore grade <span
+                                aria-hidden="true">→</span></span></button><button class="grade"
+                        style="--accent:#2867aa" id="tab-professional" role="tab" aria-controls="panel-professional"
+                        aria-selected="false" tabindex="-1" data-grade="professional"><span class="grade-num">02 /
+                            MEMBERSHIP GRADE</span><span class="grade-title">Professional Member</span><span
+                            class="grade-summary">Recognize developing responsibility and progressively stronger
+                            professional practice.</span><span class="grade-link">Explore grade <span
+                                aria-hidden="true">→</span></span></button><button class="grade"
+                        style="--accent:#a47d32" id="tab-chartered" role="tab" aria-controls="panel-chartered"
+                        aria-selected="false" tabindex="-1" data-grade="chartered"><span class="grade-num">03 /
+                            MEMBERSHIP GRADE</span><span class="grade-title">Chartered Member</span><span
+                            class="grade-summary">Demonstrate advanced capability, significant accountability and
+                            ethical leadership.</span><span class="grade-link">Explore grade <span
+                                aria-hidden="true">→</span></span></button><button class="grade"
+                        style="--accent:#72546c" id="tab-fellow" role="tab" aria-controls="panel-fellow"
+                        aria-selected="false" tabindex="-1" data-grade="fellow"><span class="grade-num">04 / MEMBERSHIP
+                            GRADE</span><span class="grade-title">Fellow</span><span class="grade-summary">Recognize
+                            sustained leadership, professional service and contribution to the profession.</span><span
+                            class="grade-link">Explore grade <span aria-hidden="true">→</span></span></button></div>
+                <div class="grade-panel" id="panel-associate" role="tabpanel" aria-labelledby="tab-associate"
+                    tabindex="0">
+                    <div>
+                        <p class="eyebrow">Your professional profile</p>
+                        <h3>Associate Member</h3>
+                        <p>Relevant learning and at least one year of relevant experience, or accepted competence
+                            evidence.</p><a class="text-link" href="https://ciscm.us/contact_us" target="_blank"
+                            rel="noopener">Request eligibility guidance →</a>
+                    </div>
+                    <div>
+                        <h4>Indicative evidence</h4>
+                        <ul>
+                            <li>Current CV or professional profile</li>
+                            <li>Learning and qualification evidence</li>
+                            <li>Verification of relevant experience</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>What to prepare</h4>
+                        <p>Show how your learning and practical experience connect to professional supply chain
+                            practice.</p>
+                    </div>
+                </div>
+                <div class="grade-panel" id="panel-professional" role="tabpanel" aria-labelledby="tab-professional"
+                    tabindex="0" hidden>
+                    <div>
+                        <p class="eyebrow">Your professional profile</p>
+                        <h3>Professional Member</h3>
+                        <p>Relevant competence supported by at least three years of progressive experience.</p><a
+                            class="text-link" href="https://ciscm.us/contact_us" target="_blank" rel="noopener">Request
+                            eligibility guidance →</a>
+                    </div>
+                    <div>
+                        <h4>Indicative evidence</h4>
+                        <ul>
+                            <li>Verified professional experience</li>
+                            <li>A statement of competence</li>
+                            <li>CPD records and professional references</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>What to prepare</h4>
+                        <p>Demonstrate your competence, the progression of your responsibilities and your commitment to
+                            professional currency.</p>
+                    </div>
+                </div>
+                <div class="grade-panel" id="panel-chartered" role="tabpanel" aria-labelledby="tab-chartered"
+                    tabindex="0" hidden>
+                    <div>
+                        <p class="eyebrow">Your professional profile</p>
+                        <h3>Chartered Member</h3>
+                        <p>Experienced professionals with advanced competence, significant accountability and
+                            peer-reviewed evidence.</p><a class="text-link" href="https://ciscm.us/contact_us"
+                            target="_blank" rel="noopener">Request eligibility guidance →</a>
+                    </div>
+                    <div>
+                        <h4>Indicative evidence</h4>
+                        <ul>
+                            <li>A professional portfolio</li>
+                            <li>References and professional review</li>
+                            <li>Evidence of leadership impact</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>What to prepare</h4>
+                        <p>Present evidence of advanced practice and accountability, supported by ethical standing and
+                            professional review.</p>
+                    </div>
+                </div>
+                <div class="grade-panel" id="panel-fellow" role="tabpanel" aria-labelledby="tab-fellow" tabindex="0"
+                    hidden>
+                    <div>
+                        <p class="eyebrow">Your professional profile</p>
+                        <h3>Fellow</h3>
+                        <p>Senior professionals with sustained impact, leadership and service, normally over eight to
+                            ten years.</p><a class="text-link" href="https://ciscm.us/contact_us" target="_blank"
+                            rel="noopener">Request eligibility guidance →</a>
+                    </div>
+                    <div>
+                        <h4>Indicative evidence</h4>
+                        <ul>
+                            <li>Nomination or application</li>
+                            <li>An impact portfolio and references</li>
+                            <li>Panel review</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>What to prepare</h4>
+                        <p>Evidence sustained contribution, the impact of your leadership and service to the profession.
+                        </p>
+                    </div>
+                </div>
+                <p class="policy-note">Profiles and evidence are indicative. CISCM’s approved grade policy governs
+                    eligibility, grade names and permitted designations. Grade and Chartered title use require formal
+                    approval; this preview does not grant membership or designation rights.</p>
+                <div class="info"><span class="icon" aria-hidden="true">ⓘ</span>
+                    <div><strong>Membership and certification are distinct.</strong> Membership concerns continuing
+                        professional standing. Certification concerns assessed competence. Membership does not
+                        automatically confer a certification.</div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="wrap competencies">
+                <div class="competency-intro">
+                    <p class="eyebrow">A shared professional foundation</p>
+                    <h2>Seven dimensions.<br>A fuller view of<br>your capability.</h2>
+                    <p>Membership progression considers the breadth of your professional practice, alongside your
+                        contribution and ethical standing.</p>
+                    <p>Use these dimensions to organize evidence of what you know, what you apply, and the difference
+                        your work makes.</p><a class="text-link" href="#cpd">Connect your learning to practice →</a>
+                </div>
+                <div>
+                    <article class="dimension"><span>01</span>
+                        <div>
+                            <h3>Technical practice</h3>
+                            <p>From applying professional tools to shaping enterprise practice.</p>
+                        </div>
+                    </article>
+                    <article class="dimension"><span>02</span>
+                        <div>
+                            <h3>Business and commercial insight</h3>
+                            <p>Connect decisions with cost, service, value and investment.</p>
+                        </div>
+                    </article>
+                    <article class="dimension"><span>03</span>
+                        <div>
+                            <h3>Data and digital capability</h3>
+                            <p>Develop responsible data use, analytical judgement and digital leadership.</p>
+                        </div>
+                    </article>
+                    <article class="dimension"><span>04</span>
+                        <div>
+                            <h3>Leadership and collaboration</h3>
+                            <p>Build alignment, work across boundaries and develop others.</p>
+                        </div>
+                    </article>
+                    <article class="dimension"><span>05</span>
+                        <div>
+                            <h3>Ethics and sustainability</h3>
+                            <p>Bring responsible sourcing, integrity and public value into decisions.</p>
+                        </div>
+                    </article>
+                    <article class="dimension"><span>06</span>
+                        <div>
+                            <h3>Improvement and resilience</h3>
+                            <p>Solve problems and help systems adapt to disruption.</p>
+                        </div>
+                    </article>
+                    <article class="dimension"><span>07</span>
+                        <div>
+                            <h3>Professional learning</h3>
+                            <p>Learn continuously and contribute through mentoring and professional service.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="cpd-section" id="cpd">
+            <div class="wrap">
+                <div class="cpd-top">
+                    <div>
+                        <p class="eyebrow">Continuing professional development</p>
+                        <h2>Learning that changes<br>the way you practise.</h2>
+                        <p>Plan your development around relevant capability. Record what you learn, how you use it and
+                            what changes as a result.</p>
+                    </div>
+                    <div>
+                        <div class="cpd-numbers">
+                            <div class="cpd-number"><strong>30</strong><span>Relevant CPD hours<br>per year</span></div>
+                            <div class="cpd-number"><strong>15</strong><span>Structured learning<br>hours</span></div>
+                            <div class="cpd-number"><strong>2</strong><span>Hours addressing<br>professional
+                                    responsibility</span></div>
+                        </div>
+                        <p class="cpd-note">Published recommended expectations for professional grades, subject to the
+                            approved grade policy. Professional responsibility topics include ethics, compliance,
+                            sustainability, responsible sourcing and data.</p>
+                    </div>
+                </div>
+                <div class="cycle">
+                    <div class="cycle-tabs" role="tablist" aria-label="Six-step CPD cycle"><button class="cycle-tab"
+                            role="tab" id="cycle-tab-0" aria-controls="cycle-panel-0" aria-selected="true" tabindex="0"
+                            data-cycle="0"><small>01</small>Assess</button><button class="cycle-tab" role="tab"
+                            id="cycle-tab-1" aria-controls="cycle-panel-1" aria-selected="false" tabindex="-1"
+                            data-cycle="1"><small>02</small>Plan</button><button class="cycle-tab" role="tab"
+                            id="cycle-tab-2" aria-controls="cycle-panel-2" aria-selected="false" tabindex="-1"
+                            data-cycle="2"><small>03</small>Learn</button><button class="cycle-tab" role="tab"
+                            id="cycle-tab-3" aria-controls="cycle-panel-3" aria-selected="false" tabindex="-1"
+                            data-cycle="3"><small>04</small>Apply</button><button class="cycle-tab" role="tab"
+                            id="cycle-tab-4" aria-controls="cycle-panel-4" aria-selected="false" tabindex="-1"
+                            data-cycle="4"><small>05</small>Reflect</button><button class="cycle-tab" role="tab"
+                            id="cycle-tab-5" aria-controls="cycle-panel-5" aria-selected="false" tabindex="-1"
+                            data-cycle="5"><small>06</small>Review</button></div>
+                    <div class="cycle-panel" role="tabpanel" id="cycle-panel-0" aria-labelledby="cycle-tab-0"
+                        tabindex="0">
+                        <h3>Assess</h3>
+                        <div>
+                            <p><strong>Identify your capability priorities.</strong></p>
+                            <p>Compare your responsibilities and target role with the relevant CISCM competency domains
+                                and units.</p>
+                        </div>
+                    </div>
+                    <div class="cycle-panel" role="tabpanel" id="cycle-panel-1" aria-labelledby="cycle-tab-1"
+                        tabindex="0" hidden>
+                        <h3>Plan</h3>
+                        <div>
+                            <p><strong>Give your learning a clear purpose.</strong></p>
+                            <p>Choose two or three priority capabilities and identify how you intend to use them in your
+                                work.</p>
+                        </div>
+                    </div>
+                    <div class="cycle-panel" role="tabpanel" id="cycle-panel-2" aria-labelledby="cycle-tab-2"
+                        tabindex="0" hidden>
+                        <h3>Learn</h3>
+                        <div>
+                            <p><strong>Choose activities that meet the need.</strong></p>
+                            <p>Combine structured learning, professional experience and contribution-based activities.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="cycle-panel" role="tabpanel" id="cycle-panel-3" aria-labelledby="cycle-tab-3"
+                        tabindex="0" hidden>
+                        <h3>Apply</h3>
+                        <div>
+                            <p><strong>Put the learning into practice.</strong></p>
+                            <p>Test new knowledge through work, simulations, mentoring, writing or professional
+                                discussion.</p>
+                        </div>
+                    </div>
+                    <div class="cycle-panel" role="tabpanel" id="cycle-panel-4" aria-labelledby="cycle-tab-4"
+                        tabindex="0" hidden>
+                        <h3>Reflect</h3>
+                        <div>
+                            <p><strong>Capture what changed.</strong></p>
+                            <p>Record the learning, the evidence of application, the outcome and any remaining gaps.</p>
+                        </div>
+                    </div>
+                    <div class="cycle-panel" role="tabpanel" id="cycle-panel-5" aria-labelledby="cycle-tab-5"
+                        tabindex="0" hidden>
+                        <h3>Review</h3>
+                        <div>
+                            <p><strong>Keep your development moving.</strong></p>
+                            <p>Update your development plan and organize evidence for renewal, audit or progression.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="cpd-links">
+                    <details style="flex:1;min-width:240px">
+                        <summary>What activities may count?</summary>
+                        <p>Relevant courses, webinars, projects, research, mentoring, teaching, writing, conferences,
+                            professional service and guided self-study may count when supported by evidence and linked
+                            to a development need.</p>
+                    </details>
+                    <details style="flex:1;min-width:240px">
+                        <summary>What should my CPD record contain?</summary>
+                        <p>Record the date, activity and source; relevant competency domain or unit; hours and activity
+                            type; learning gained; application or reflection; and supporting evidence.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+        <section class="grey" id="organizations">
+            <div class="wrap">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">Organizational membership</p>
+                        <h2>Build capability.<br>Connect your organization.</h2>
+                    </div>
+                    <p>Explore professional engagement for employers, learning institutions and organizations serving
+                        the wider sector.</p>
+                </div>
+                <div class="organization-cards">
+                    <article class="organization"><span class="org-icon" aria-hidden="true">01</span>
+                        <h3>Corporate Member</h3>
+                        <p>For employers developing supply chain capability and engaging their people in professional
+                            learning.</p><a class="text-link" href="https://ciscm.us/contact_us" target="_blank"
+                            rel="noopener">Discuss organizational membership →</a>
+                    </article>
+                    <article class="organization"><span class="org-icon" aria-hidden="true">02</span>
+                        <h3>Academic or Training Partner Member</h3>
+                        <p>For eligible institutions seeking knowledge exchange, collaboration and professional
+                            engagement.</p><a class="text-link" href="https://ciscm.us/contact_us" target="_blank"
+                            rel="noopener">Discuss organizational membership →</a>
+                    </article>
+                    <article class="organization"><span class="org-icon" aria-hidden="true">03</span>
+                        <h3>Public or Nonprofit Partner Member</h3>
+                        <p>For public, development, association and nonprofit bodies contributing to sector dialogue and
+                            learning.</p><a class="text-link" href="https://ciscm.us/contact_us" target="_blank"
+                            rel="noopener">Discuss organizational membership →</a>
+                    </article>
+                </div>
+                <div class="info"><span class="icon" aria-hidden="true">ⓘ</span>
+                    <div><strong>Membership does not confer accreditation.</strong> Institutional or program
+                        accreditation, training delivery authorization, trainer approval and certificate issuance each
+                        require a separate documented decision.</div>
+                </div>
+            </div>
+        </section>
+        <section id="conduct">
+            <div class="wrap conduct">
+                <div>
+                    <p class="eyebrow">Professional standing carries responsibility</p>
+                    <h2>Integrity is part<br>of membership.</h2>
+                    <p>Members maintain their standing through conduct, professional currency and active status. Payment
+                        alone is not a measure of professional standing.</p>
+                </div>
+                <div class="obligations">
+                    <div class="obligation"><strong>Practise with integrity</strong>Act honestly, competently, lawfully
+                        and fairly; avoid corrupt, discriminatory and misleading conduct.</div>
+                    <div class="obligation"><strong>Protect trust</strong>Safeguard personal and confidential
+                        information and manage conflicts of interest.</div>
+                    <div class="obligation"><strong>Maintain competence</strong>Keep your professional capability and
+                        learning current.</div>
+                    <div class="obligation"><strong>Use recognition correctly</strong>Use designations and marks only as
+                        authorized.</div>
+                    <div class="obligation"><strong>Support accountability</strong>Disclose relevant material matters
+                        and cooperate with verification and disciplinary processes.</div>
+                    <div class="obligation"><strong>Keep membership current</strong>Maintain current subscription and
+                        contact information.</div>
+                </div>
+            </div>
+        </section>
+        <section class="application" id="apply">
+            <div class="wrap application-grid">
+                <div>
+                    <p class="eyebrow">Your next step</p>
+                    <h2>Bring your experience.<br>Build your professional standing.</h2>
+                    <p>Review the grade profile, prepare your evidence, and confirm the current membership terms with
+                        CISCM.</p>
+                    <div class="actions"><a class="btn" href="https://ciscm.us/membership-apply" target="_blank"
+                            rel="noopener">Open official application <span aria-hidden="true">→</span></a><a
+                            class="btn light" href="https://ciscm.us/contact_us" target="_blank" rel="noopener">Ask a
+                            question</a></div>
+                    <p class="source-note">Application opens on the official CISCM website. Confirm approved
+                        eligibility, fees, benefits and renewal terms before applying.</p>
+                </div>
+                <div class="application-steps">
+                    <div class="application-step">
+                        <div><strong>Explore the relevant grade</strong>
+                            <p>Match your experience, accountability and contribution to the indicative profile.</p>
+                        </div>
+                    </div>
+                    <div class="application-step">
+                        <div><strong>Prepare your professional evidence</strong>
+                            <p>Gather your CV, learning records and any grade-specific evidence or references.</p>
+                        </div>
+                    </div>
+                    <div class="application-step">
+                        <div><strong>Submit for CISCM review</strong>
+                            <p>Use the official application route and follow the applicable review process.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="faq">
+            <div class="wrap faq-grid">
+                <div class="faq-intro">
+                    <p class="eyebrow">Membership, explained</p>
+                    <h2>Before you take<br>the next step.</h2>
+                    <p>A few practical answers to help you prepare.</p><a class="text-link"
+                        href="https://ciscm.us/contact_us" target="_blank" rel="noopener">Contact CISCM →</a>
+                </div>
+                <div>
+                    <details open>
+                        <summary>How do I choose a membership grade?</summary>
+                        <p>Compare your current professional responsibilities, experience and contribution with the
+                            grade profiles. Ask CISCM to confirm the applicable criteria and evidence before applying.
+                        </p>
+                    </details>
+                    <details>
+                        <summary>Is Chartered Member the same as ChSCP certification?</summary>
+                        <p>No. Membership grades and certification credentials have separate purposes and rules. The
+                            permitted title or designation is determined by the specific approved award or membership
+                            policy.</p>
+                    </details>
+                    <details>
+                        <summary>Are the CPD hours shown a final requirement?</summary>
+                        <p>The source page describes these as recommended expectations. The approved policy for your
+                            grade determines the final CPD requirements.</p>
+                    </details>
+                    <details>
+                        <summary>Does organizational membership approve our training programs?</summary>
+                        <p>No. Organizational membership does not itself approve training providers, programs, trainers
+                            or certificate issuance. Separate documented authorization is required.</p>
+                    </details>
+                    <details>
+                        <summary>Where can I confirm membership fees and renewal terms?</summary>
+                        <p>Request current information from CISCM before applying. No fee or renewal period has been
+                            assumed in this design.</p>
+                    </details>
+                    <details>
+                        <summary>Can I progress to another membership grade?</summary>
+                        <p>Progression is based on demonstrated competence, ethical standing and contribution under the
+                            applicable grade policy. Length of membership alone does not establish eligibility.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="wrap">
+            <div class="footer-grid">
+                <div class="footer-about"><a class="brand" href="#main"><span class="brandmark"
+                            aria-hidden="true">✦</span><span><span class="brandname">CISCM</span><small>Chartered
+                                Institute of<br>Supply Chain Management</small></span></a>
+                    <p>Chartered Institute of Supply Chain Management LLC is an independent professional organization
+                        focused on supply chain, logistics, procurement and operations management.</p>
+                </div>
+                <div>
+                    <h4>Membership</h4><a href="#grades">Individual grades</a><a href="#organizations">Organizational
+                        membership</a><a href="#cpd">Professional development</a><a href="#conduct">Member
+                        responsibilities</a>
+                </div>
+                <div>
+                    <h4>Explore further</h4><a href="https://ciscm.us/credentials" target="_blank"
+                        rel="noopener">Professional credentials</a><a href="https://ciscm.us/membership" target="_blank"
+                        rel="noopener">Official membership page</a><a href="https://ciscm.us/contact_us" target="_blank"
+                        rel="noopener">Contact CISCM</a><a href="#faq">Frequently asked questions</a>
+                </div>
+            </div>
+            <div class="footer-bottom"><span>© 2026 Chartered Institute of Supply Chain Management
+                    LLC.</span><span>Design preview · Illustrative artwork · Policies subject to CISCM approval.</span>
+            </div>
+        </div>
+    </footer>
+    <script>
+        function tabGroup(selector, attr, prefix) { const tabs = [...document.querySelectorAll(selector)]; function activate(id, focus = false) { tabs.forEach(t => { const on = t.getAttribute(attr) === id; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; document.getElementById(prefix + t.getAttribute(attr)).hidden = !on; if (on && focus) t.focus() }) } tabs.forEach((t, i) => { t.addEventListener('click', () => activate(t.getAttribute(attr))); t.addEventListener('keydown', e => { let n; if (e.key === 'ArrowRight') n = (i + 1) % tabs.length; if (e.key === 'ArrowLeft') n = (i + tabs.length - 1) % tabs.length; if (e.key === 'Home') n = 0; if (e.key === 'End') n = tabs.length - 1; if (n !== undefined) { e.preventDefault(); activate(tabs[n].getAttribute(attr), true) } }) }) }
+        tabGroup('[data-grade]', 'data-grade', 'panel-'); tabGroup('[data-cycle]', 'data-cycle', 'cycle-panel-');
+        const menu = document.querySelector('.menu'), nav = document.querySelector('.links'); menu.addEventListener('click', () => { const open = menu.getAttribute('aria-expanded') !== 'true'; menu.setAttribute('aria-expanded', String(open)); nav.classList.toggle('open', open) }); nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); menu.setAttribute('aria-expanded', 'false') })); document.addEventListener('keydown', e => { if (e.key === 'Escape' && nav.classList.contains('open')) { nav.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); menu.focus() } });
+    </script>
+</body>
+
+</html>

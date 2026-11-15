@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="A proposed design for CISCM professional credentials. Compare functional, professional and chartered pathways.">
+    <title>Professional Credentials | CISCM — Design Preview</title>
+    <style>
+        :root {
+            --navy: #102a43;
+            --deep: #0a2034;
+            --gold: #b99248;
+            --ink: #243b50;
+            --muted: #596c7c;
+            --line: #dce4eb;
+            --paper: #f4f7f9;
+            --teal: #147d80;
+            --blue: #2867aa
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 110px
+        }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            font: 16px/1.65 "Segoe UI", Arial, sans-serif;
+            background: white
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        button,
+        input {
+            font: inherit
+        }
+
+        button,
+        a,
+        input,
+        summary {
+            -webkit-tap-highlight-color: transparent
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        summary:focus-visible {
+            outline: 3px solid #d7ad61;
+            outline-offset: 5px
+        }
+
+        button {
+            cursor: pointer
+        }
+
+        .wrap {
+            width: min(1180px, calc(100% - 64px));
+            margin: auto
+        }
+
+        .notice {
+            background: var(--deep);
+            color: #dce7f0;
+            text-align: center;
+            font-size: 11px;
+            letter-spacing: 1.4px;
+            padding: 7px 20px;
+            text-transform: uppercase
+        }
+
+        .notice span {
+            color: #e0ba76
+        }
+
+        .header {
+            background: #fff;
+            border-bottom: 1px solid var(--line);
+            position: sticky;
+            top: 0;
+            z-index: 20
+        }
+
+        .nav {
+            height: 88px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .brandmark {
+            width: 43px;
+            height: 49px;
+            background: var(--navy);
+            clip-path: polygon(0 0, 100% 0, 100% 72%, 50% 100%, 0 72%);
+            color: #dfbc77;
+            display: grid;
+            place-items: center;
+            font-size: 23px
+        }
+
+        .brandname {
+            display: block;
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: 2px;
+            color: var(--navy)
+        }
+
+        .brand small {
+            font-size: 8px;
+            line-height: 1.3;
+            display: block;
+            letter-spacing: 1.05px;
+            text-transform: uppercase;
+            margin-top: 5px
+        }
+
+        .links {
+            display: flex;
+            align-items: center;
+            gap: 27px;
+            font-size: 13px;
+            font-weight: 600
+        }
+
+        .links a:hover {
+            color: var(--blue)
+        }
+
+        .links .active {
+            color: var(--blue);
+            position: relative
+        }
+
+        .links .active:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -32px;
+            height: 3px;
+            background: var(--gold)
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            border: 1px solid var(--navy);
+            background: var(--navy);
+            color: #fff;
+            padding: 13px 21px;
+            font-size: 13px;
+            font-weight: 650;
+            border-radius: 4px;
+            transition: background .2s, transform .2s
+        }
+
+        .btn:hover {
+            background: #234c70;
+            transform: translateY(-2px)
+        }
+
+        .btn.light {
+            background: white;
+            color: var(--navy);
+            border-color: #becbd5
+        }
+
+        .btn.light:hover {
+            background: #f0f4f8
+        }
+
+        .btn.gold {
+            background: #d5b16d;
+            border-color: #d5b16d;
+            color: var(--deep)
+        }
+
+        .btn.small {
+            padding: 10px 16px
+        }
+
+        .menu {
+            display: none;
+            background: none;
+            border: 1px solid var(--line);
+            padding: 7px 12px;
+            border-radius: 4px;
+            color: var(--navy)
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(110deg, #f4f7f9, #fff 65%)
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 32px;
+            align-items: center;
+            padding-top: 68px;
+            padding-bottom: 67px
+        }
+
+        .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 2.2px;
+            font-size: 11px;
+            font-weight: 750;
+            color: var(--teal);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 20px
+        }
+
+        .eyebrow:before {
+            content: "";
+            width: 26px;
+            height: 2px;
+            background: var(--gold)
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        p {
+            margin-top: 0
+        }
+
+        h1 {
+            font-family: Georgia, serif;
+            font-size: clamp(38px, 4.2vw, 57px);
+            line-height: 1.12;
+            font-weight: 500;
+            letter-spacing: -1.5px;
+            color: var(--navy);
+            margin-bottom: 24px
+        }
+
+        h1 em {
+            font-style: normal;
+            color: var(--teal)
+        }
+
+        .lead {
+            font-size: 16px;
+            line-height: 1.85;
+            color: var(--muted);
+            max-width: 520px;
+            margin-bottom: 29px
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px
+        }
+
+        .hero-note {
+            font-size: 11px;
+            color: var(--muted);
+            margin: 22px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 9px
+        }
+
+        .hero-note b {
+            color: var(--teal);
+            font-size: 15px
+        }
+
+        .credential-art {
+            position: relative;
+            display: grid;
+            place-items: center;
+            min-height: 400px
+        }
+
+        .orbit {
+            position: absolute;
+            width: 365px;
+            height: 365px;
+            border: 1px solid #d6e2e9;
+            border-radius: 50%
+        }
+
+        .orbit:before {
+            content: "";
+            position: absolute;
+            inset: 30px;
+            border: 1px dashed #d6e2e9;
+            border-radius: 50%
+        }
+
+        .orbit:after {
+            content: "";
+            position: absolute;
+            inset: -30px;
+            border: 1px solid #e4ebef;
+            border-radius: 50%
+        }
+
+        .cert {
+            z-index: 1;
+            position: relative;
+            width: 300px;
+            background: white;
+            border: 1px solid #d5dfe7;
+            border-radius: 9px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 24px 60px #18375015;
+            transform: rotate(-5deg)
+        }
+
+        .cert-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--navy);
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .cert-top small {
+            font-size: 8px;
+            letter-spacing: 1px;
+            color: #667b8b
+        }
+
+        .seal {
+            width: 145px;
+            height: 145px;
+            margin: 25px auto 21px;
+            border: 1px solid #ceb273;
+            border-radius: 50%;
+            padding: 9px;
+            background: radial-gradient(circle, #fcfaf5, #fff)
+        }
+
+        .seal-inner {
+            border: 1px dashed #c9ad72;
+            border-radius: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: var(--navy)
+        }
+
+        .seal-inner small {
+            font-size: 8px;
+            letter-spacing: 2px
+        }
+
+        .seal-inner strong {
+            font: 700 31px Georgia, serif;
+            margin: 3px 0
+        }
+
+        .seal-inner span {
+            color: #ab843a;
+            font-size: 18px
+        }
+
+        .cert-title {
+            font-family: Georgia, serif;
+            font-size: 19px;
+            line-height: 1.4;
+            color: var(--navy);
+            margin-bottom: 8px
+        }
+
+        .cert-caption {
+            font-size: 8px;
+            letter-spacing: 1.5px;
+            color: var(--muted);
+            text-transform: uppercase
+        }
+
+        .cert-bottom {
+            border-top: 1px solid var(--line);
+            padding-top: 15px;
+            margin-top: 20px;
+            font-size: 9px;
+            color: var(--muted);
+            letter-spacing: .5px
+        }
+
+        .float-label {
+            position: absolute;
+            z-index: 2;
+            background: var(--navy);
+            color: white;
+            border-radius: 5px;
+            padding: 12px 19px;
+            font-size: 11px;
+            box-shadow: 0 10px 25px #102a4320;
+            bottom: 23px;
+            right: 4px;
+            display: flex;
+            gap: 12px;
+            align-items: center
+        }
+
+        .float-label span {
+            font-size: 22px;
+            color: #d8b979
+        }
+
+        .float-label small {
+            display: block;
+            font-size: 9px;
+            color: #c3d1dc
+        }
+
+        .principles {
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            background: white
+        }
+
+        .principles .wrap {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr)
+        }
+
+        .principle {
+            padding: 21px 25px;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            font-size: 12px;
+            font-weight: 650
+        }
+
+        .principle:not(:last-child) {
+            border-right: 1px solid var(--line)
+        }
+
+        .principle span {
+            font-size: 20px;
+            color: var(--gold)
+        }
+
+        section {
+            padding: 76px 0
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 35px;
+            align-items: flex-end;
+            margin-bottom: 32px
+        }
+
+        .section-head h2 {
+            margin-bottom: 0
+        }
+
+        .section-head p {
+            max-width: 370px;
+            font-size: 14px;
+            color: var(--muted);
+            margin: 0
+        }
+
+        h2 {
+            font-family: Georgia, serif;
+            font-size: 36px;
+            font-weight: 500;
+            color: var(--navy);
+            letter-spacing: -.6px;
+            line-height: 1.2;
+            margin-bottom: 18px
+        }
+
+        .section-head .eyebrow {
+            margin-bottom: 12px
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px
+        }
+
+        .card {
+            border: 1px solid var(--line);
+            border-top: 4px solid var(--accent);
+            border-radius: 7px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            transition: transform .2s, box-shadow .2s
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 18px 35px #102a430c
+        }
+
+        .card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px
+        }
+
+        .initial {
+            width: 54px;
+            height: 57px;
+            clip-path: polygon(0 0, 100% 0, 100% 77%, 50% 100%, 0 77%);
+            background: var(--tint);
+            color: var(--accent);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: 15px
+        }
+
+        .tag {
+            font-size: 9px;
+            font-weight: 750;
+            letter-spacing: 1px;
+            color: var(--accent);
+            text-transform: uppercase
+        }
+
+        .card h3 {
+            font-family: Georgia, serif;
+            color: var(--navy);
+            font-size: 25px;
+            font-weight: 500;
+            line-height: 1.25;
+            min-height: 64px;
+            margin-bottom: 15px
+        }
+
+        .card>p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.8;
+            min-height: 70px
+        }
+
+        .best {
+            border-top: 1px solid var(--line);
+            padding: 19px 0 22px;
+            font-size: 12px;
+            flex: 1
+        }
+
+        .best small {
+            display: block;
+            font-size: 9px;
+            letter-spacing: 1px;
+            color: var(--muted);
+            font-weight: 750;
+            margin-bottom: 6px
+        }
+
+        .card .btn {
+            width: 100%;
+            background: white;
+            color: var(--navy);
+            border-color: #cbd6df;
+            justify-content: space-between
+        }
+
+        .card .btn:hover {
+            background: var(--navy);
+            color: white
+        }
+
+        .info {
+            margin-top: 25px;
+            padding: 17px 22px;
+            background: var(--paper);
+            border-radius: 5px;
+            display: flex;
+            gap: 13px;
+            align-items: flex-start;
+            font-size: 12px;
+            color: var(--muted)
+        }
+
+        .info strong {
+            color: var(--navy)
+        }
+
+        .info .icon {
+            color: var(--teal);
+            font-size: 18px;
+            line-height: 1.3
+        }
+
+        .grey {
+            background: var(--paper)
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+            background: white;
+            border: 1px solid var(--line);
+            border-radius: 7px
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 13px;
+            text-align: left
+        }
+
+        th,
+        td {
+            padding: 21px 23px;
+            vertical-align: top;
+            border-bottom: 1px solid var(--line);
+            border-right: 1px solid #edf1f4
+        }
+
+        thead th {
+            background: var(--navy);
+            color: white;
+            font-size: 15px
+        }
+
+        thead th small {
+            display: block;
+            font-size: 10px;
+            letter-spacing: .2px;
+            font-weight: 400;
+            color: #c6d5e0;
+            margin-top: 4px
+        }
+
+        tbody th {
+            font-size: 12px;
+            color: var(--navy);
+            width: 21%;
+            background: #fbfcfd
+        }
+
+        tbody tr:last-child>* {
+            border-bottom: 0
+        }
+
+        td {
+            width: 26.33%
+        }
+
+        .detail-heading {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 30px
+        }
+
+        .detail-heading .eyebrow {
+            justify-content: center
+        }
+
+        .detail-heading p {
+            color: var(--muted);
+            font-size: 14px
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            padding: 6px;
+            width: fit-content;
+            margin: 0 auto 36px;
+            border-radius: 6px
+        }
+
+        .tab {
+            background: transparent;
+            border: 0;
+            border-radius: 4px;
+            color: var(--muted);
+            padding: 11px 22px;
+            font-size: 12px;
+            font-weight: 650
+        }
+
+        .tab[aria-selected=true] {
+            background: var(--navy);
+            color: white;
+            box-shadow: 0 3px 8px #102a431a
+        }
+
+        .panel {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: .75fr 1.25fr
+        }
+
+        .panel[hidden] {
+            display: none
+        }
+
+        .panel-side {
+            background: var(--navy);
+            padding: 36px;
+            color: white
+        }
+
+        .panel-side .tag {
+            color: #dcc18f
+        }
+
+        .panel-side h3 {
+            font-family: Georgia, serif;
+            font-size: 29px;
+            line-height: 1.3;
+            font-weight: 500;
+            margin: 16px 0 20px
+        }
+
+        .panel-side p {
+            color: #c4d2dd;
+            font-size: 13px
+        }
+
+        .panel-side .btn {
+            margin-top: 10px
+        }
+
+        .panel-main {
+            padding: 34px 38px
+        }
+
+        .panel-main h4 {
+            font-size: 14px;
+            color: var(--navy);
+            margin-bottom: 12px
+        }
+
+        .panel-main p,
+        .panel-main li {
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 0 0 24px
+        }
+
+        li {
+            padding: 3px 0
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-bottom: 25px
+        }
+
+        .chip {
+            border: 1px solid var(--line);
+            background: var(--paper);
+            border-radius: 4px;
+            padding: 6px 10px;
+            font-size: 11px
+        }
+
+        .assessment {
+            border-left: 3px solid var(--gold);
+            padding: 3px 0 3px 16px
+        }
+
+        .assessment p {
+            margin: 0
+        }
+
+        .journey {
+            background: var(--navy);
+            color: white
+        }
+
+        .journey h2 {
+            color: white
+        }
+
+        .journey .eyebrow {
+            color: #d8bb86
+        }
+
+        .journey .section-head p {
+            color: #c0d0dc
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 40px
+        }
+
+        .step-number {
+            font: 28px Georgia, serif;
+            color: #dbc18e;
+            border-bottom: 1px solid #ffffff25;
+            padding-bottom: 16px;
+            margin-bottom: 21px;
+            display: flex;
+            justify-content: space-between
+        }
+
+        .step-number span {
+            color: #7892a6;
+            font: 20px Arial
+        }
+
+        .step h3 {
+            font-size: 15px;
+            margin-bottom: 10px;
+            color: white
+        }
+
+        .step p {
+            font-size: 12px;
+            color: #c2d0db;
+            margin: 0
+        }
+
+        .journey-note {
+            font-size: 11px;
+            color: #c2d0db;
+            border-top: 1px solid #ffffff25;
+            padding-top: 22px;
+            margin: 33px 0 0
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: .65fr 1.35fr;
+            gap: 70px
+        }
+
+        .faq-intro p {
+            font-size: 14px;
+            color: var(--muted)
+        }
+
+        .text-link {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--teal)
+        }
+
+        details {
+            border-bottom: 1px solid var(--line)
+        }
+
+        details:first-child {
+            border-top: 1px solid var(--line)
+        }
+
+        summary {
+            cursor: pointer;
+            list-style: none;
+            padding: 21px 32px 21px 0;
+            font-size: 14px;
+            font-weight: 650;
+            color: var(--navy);
+            position: relative
+        }
+
+        summary::-webkit-details-marker {
+            display: none
+        }
+
+        summary:after {
+            content: "+";
+            position: absolute;
+            right: 4px;
+            top: 18px;
+            font-size: 23px;
+            font-weight: 400;
+            color: var(--teal)
+        }
+
+        details[open] summary:after {
+            content: "−"
+        }
+
+        details p {
+            font-size: 13px;
+            color: var(--muted);
+            padding-right: 28px;
+            margin-bottom: 22px
+        }
+
+        .cta {
+            padding: 0 0 70px
+        }
+
+        .cta-inner {
+            border: 1px solid #d8c59e;
+            border-radius: 7px;
+            background: #faf8f2;
+            padding: 37px 42px;
+            display: flex;
+            gap: 35px;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .cta h2 {
+            font-size: 29px;
+            margin-bottom: 8px
+        }
+
+        .cta p {
+            font-size: 13px;
+            color: var(--muted);
+            margin: 0
+        }
+
+        footer {
+            background: var(--deep);
+            color: #b4c5d2;
+            padding: 45px 0 24px
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 65px
+        }
+
+        footer .brandname {
+            color: white;
+            font-size: 24px
+        }
+
+        footer .brand small {
+            color: #b4c5d2
+        }
+
+        footer p {
+            max-width: 440px;
+            font-size: 11px;
+            line-height: 1.8;
+            margin: 18px 0
+        }
+
+        footer h4 {
+            font-size: 11px;
+            color: white;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1.4px
+        }
+
+        footer a:not(.brand) {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 8px
+        }
+
+        footer a:hover {
+            color: white
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #ffffff20;
+            padding-top: 20px;
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            font-size: 10px
+        }
+
+        .skip {
+            position: fixed;
+            left: 10px;
+            top: -100px;
+            background: white;
+            padding: 10px;
+            z-index: 100
+        }
+
+        .skip:focus {
+            top: 10px
+        }
+
+        @media(min-width:1500px) {
+            .hero-grid {
+                padding-top: 85px;
+                padding-bottom: 85px
+            }
+        }
+
+        @media(max-width:1000px) {
+            .links {
+                gap: 15px;
+                font-size: 12px
+            }
+
+            .links .btn {
+                display: none
+            }
+
+            .hero-grid {
+                grid-template-columns: 1.15fr .85fr
+            }
+
+            .credential-art {
+                transform: scale(.86)
+            }
+
+            .card {
+                padding: 22px
+            }
+
+            .tag {
+                font-size: 8px
+            }
+
+            .panel {
+                grid-template-columns: .8fr 1.2fr
+            }
+
+            .panel-main {
+                padding: 28px
+            }
+
+            .faq-grid {
+                gap: 40px
+            }
+        }
+
+        @media(max-width:760px) {
+            .wrap {
+                width: calc(100% - 36px)
+            }
+
+            .nav {
+                height: 74px
+            }
+
+            .brandname {
+                font-size: 24px
+            }
+
+            .brand small {
+                font-size: 7px
+            }
+
+            .brandmark {
+                width: 36px;
+                height: 43px
+            }
+
+            .menu {
+                display: block
+            }
+
+            .links {
+                display: none;
+                position: absolute;
+                top: 74px;
+                left: 0;
+                right: 0;
+                background: white;
+                box-shadow: 0 10px 15px #102a4310;
+                padding: 20px;
+                flex-direction: column;
+                align-items: stretch
+            }
+
+            .links.open {
+                display: flex
+            }
+
+            .links .active:after {
+                display: none
+            }
+
+            .links a {
+                padding: 7px
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                padding: 45px 0 40px;
+                gap: 10px
+            }
+
+            h1 {
+                font-size: 43px
+            }
+
+            .lead {
+                font-size: 14px
+            }
+
+            .credential-art {
+                min-height: 365px;
+                transform: scale(.9);
+                margin: -5px 0 -15px
+            }
+
+            .float-label {
+                right: 0;
+                bottom: 20px
+            }
+
+            .principles .wrap {
+                grid-template-columns: 1fr
+            }
+
+            .principle {
+                padding: 13px 4px;
+                font-size: 11px
+            }
+
+            .principle:not(:last-child) {
+                border-right: 0;
+                border-bottom: 1px solid var(--line)
+            }
+
+            section {
+                padding: 50px 0
+            }
+
+            .section-head {
+                display: block
+            }
+
+            .section-head p {
+                margin-top: 16px;
+                max-width: 100%
+            }
+
+            h2 {
+                font-size: 31px
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+                gap: 18px
+            }
+
+            .card h3,
+            .card>p {
+                min-height: 0
+            }
+
+            .card {
+                padding: 25px
+            }
+
+            .tag {
+                font-size: 9px
+            }
+
+            .card-top {
+                margin-bottom: 18px
+            }
+
+            .table-scroll table {
+                min-width: 700px
+            }
+
+            .tabs {
+                width: 100%;
+                gap: 3px
+            }
+
+            .tab {
+                flex: 1;
+                padding: 10px 6px;
+                font-size: 11px
+            }
+
+            .tab span {
+                display: none
+            }
+
+            .panel {
+                grid-template-columns: 1fr
+            }
+
+            .panel-side {
+                padding: 28px
+            }
+
+            .panel-side h3 {
+                font-size: 27px
+            }
+
+            .panel-main {
+                padding: 28px
+            }
+
+            .steps {
+                grid-template-columns: 1fr 1fr;
+                gap: 25px
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+                gap: 22px
+            }
+
+            .cta {
+                padding-bottom: 45px
+            }
+
+            .cta-inner {
+                display: block;
+                padding: 27px
+            }
+
+            .cta .btn {
+                margin-top: 20px
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 28px
+            }
+
+            .footer-about {
+                grid-column: 1/-1
+            }
+
+            .footer-bottom {
+                display: block
+            }
+
+            .footer-bottom span {
+                display: block;
+                margin-bottom: 7px
+            }
+
+            .notice {
+                font-size: 9px;
+                letter-spacing: 1px
+            }
+
+            .info {
+                padding: 15px
+            }
+
+            .hero .btn {
+                padding: 12px 16px
+            }
+
+            .orbit {
+                width: 310px;
+                height: 310px
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            html {
+                scroll-behavior: auto
+            }
+
+            * {
+                transition: none !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main" class="skip">Skip to content</a>
+    <div class="notice"><span>Design concept</span> &nbsp; / &nbsp; CISCM professional credentials</div>
+    <header class="header">
+        <div class="wrap nav"><a class="brand" href="#main" aria-label="CISCM home"><span class="brandmark"
+                    aria-hidden="true">✦</span><span><span class="brandname">CISCM</span><small>Chartered Institute
+                        of<br>Supply Chain Management</small></span></a><button class="menu" aria-expanded="false"
+                aria-controls="navigation">Menu</button>
+            <nav class="links" id="navigation" aria-label="Main navigation">
+                    <a class="active" href="index.html">Credentials</a>
+                    <a href="CISCM_Membership_Source.html" target="_blank" rel="noopener">Membership</a>
+                    <a href="CISCM_Institutional_Accreditation_Source.html">Institutional Accriditation</a>
+                    <a href="CISCM_Program_Accreditation_Source.html">Program Accriditation</a>
+                    <a href="CISCM_Professional_Standards_Redesign.html">Professional Standard</a>
+                    <a class="btn small" href="CISCM_Institutional_Accreditation_Source.html">Verify</a>
+                </nav>
+        </div>
+    </header>
+    <main id="main">
+        <div class="hero">
+            <div class="wrap hero-grid">
+                <div>
+                    <p class="eyebrow">Expertise. Evidence. Recognition.</p>
+                    <h1>Your expertise.<br>Your next chapter.<br><em>Your credential.</em></h1>
+                    <p class="lead">Professional recognition for the work you do—and the responsibility you are ready to
+                        take on. Explore a CISCM credential aligned with your supply chain capability.</p>
+                    <div class="actions"><a class="btn" href="#credentials">Explore credentials <span
+                                aria-hidden="true">↓</span></a><a class="btn light" href="#compare">Compare pathways</a>
+                    </div>
+                    <p class="hero-note"><b aria-hidden="true">✓</b> Defined competencies. Applied assessment.
+                        Professional integrity.</p>
+                </div>
+                <div class="credential-art" aria-label="Illustrative CISCM credential artwork">
+                    <div class="orbit"></div>
+                    <div class="cert">
+                        <div class="cert-top">CISCM <small>PROFESSIONAL CREDENTIAL</small></div>
+                        <div class="seal">
+                            <div class="seal-inner"><small>SUPPLY
+                                    CHAIN</small><strong>ChSCP</strong><small>PROFESSIONAL</small><span>✦</span></div>
+                        </div>
+                        <div class="cert-title">Chartered Supply<br>Chain Professional</div>
+                        <div class="cert-caption">Illustrative credential design</div>
+                        <div class="cert-bottom">CAPABILITY &nbsp; · &nbsp; JUDGEMENT &nbsp; · &nbsp; INTEGRITY</div>
+                    </div>
+                    <div class="float-label"><span aria-hidden="true">✦</span>
+                        <div>Make your capability visible<small>A pathway aligned with your professional role</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="principles">
+            <div class="wrap">
+                <div class="principle"><span aria-hidden="true">◎</span> Competency-based pathways</div>
+                <div class="principle"><span aria-hidden="true">◇</span> Functional to enterprise capability</div>
+                <div class="principle"><span aria-hidden="true">↗</span> Flexible routes to preparation</div>
+            </div>
+        </div>
+        <section id="credentials">
+            <div class="wrap">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">Find your fit</p>
+                        <h2>Three credentials.<br>Distinct professional strengths.</h2>
+                    </div>
+                    <p>Choose by the capability you can demonstrate, your current responsibilities, and the evidence
+                        behind your work.</p>
+                </div>
+                <div class="cards">
+                    <article class="card" style="--accent:#147d80;--tint:#eaf5f3">
+                        <div class="card-top"><span class="initial">CFS</span><span class="tag">Functional
+                                expertise</span></div>
+                        <h3>Certified Functional<br>Specialist</h3>
+                        <p>Show analytical depth in a defined supply chain specialism and the ability to defend your
+                            recommendations.</p>
+                        <div class="best"><small>BEST SUITED TO</small>Specialists and practitioners developing focused
+                            technical expertise.</div><a class="btn explore" href="#details"
+                            data-credential="cfs">Explore CFS <span aria-hidden="true">→</span></a>
+                    </article>
+                    <article class="card" style="--accent:#2867aa;--tint:#ecf2fa">
+                        <div class="card-top"><span class="initial">CP</span><span class="tag">Professional
+                                practice</span></div>
+                        <h3>Certified<br>Professional</h3>
+                        <p>Demonstrate end-to-end understanding and analytical capability across connected operational
+                            functions.</p>
+                        <div class="best"><small>BEST SUITED TO</small>Professionals, team leaders and managers
+                            accountable for operational outcomes.</div><a class="btn explore" href="#details"
+                            data-credential="cp">Explore CP <span aria-hidden="true">→</span></a>
+                    </article>
+                    <article class="card" style="--accent:#a47d32;--tint:#f8f2e6">
+                        <div class="card-top"><span class="initial">ChSCP</span><span class="tag">Strategic
+                                leadership</span></div>
+                        <h3>Chartered Supply<br>Chain Professional</h3>
+                        <p>Demonstrate the judgement to integrate trade-offs, design systems and defend enterprise-level
+                            decisions.</p>
+                        <div class="best"><small>BEST SUITED TO</small>Experienced cross-functional leaders, directors
+                            and supply chain architects.</div><a class="btn explore" href="#details"
+                            data-credential="chscp">Explore ChSCP <span aria-hidden="true">→</span></a>
+                    </article>
+                </div>
+                <div class="info"><span class="icon" aria-hidden="true">ⓘ</span>
+                    <div><strong>Certification and membership serve different purposes.</strong> Certification
+                        recognizes assessed competence. Membership reflects professional standing under the applicable
+                        membership rules. Neither automatically grants the other.</div>
+                </div>
+            </div>
+        </section>
+        <section class="grey" id="compare">
+            <div class="wrap">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">At a glance</p>
+                        <h2>Compare your options.</h2>
+                    </div>
+                    <p>Start with your professional scope, then explore the competency expectations of each pathway.</p>
+                </div>
+                <div class="table-scroll" role="region"
+                    aria-label="Credential comparison; scroll horizontally on smaller screens" tabindex="0">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Your pathway</th>
+                                <th scope="col">CFS<small>Functional Specialist</small></th>
+                                <th scope="col">CP<small>Professional</small></th>
+                                <th scope="col">ChSCP<small>Chartered Professional</small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Professional scope</th>
+                                <td>Depth in one defined function</td>
+                                <td>Connected processes and operational outcomes</td>
+                                <td>Cross-functional systems and enterprise decisions</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Proficiency expectation</th>
+                                <td>Level 3 in the chosen functional area</td>
+                                <td>Level 3 in core domains; Level 2 elsewhere</td>
+                                <td>Level 4 across the majority of domains</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Capability focus</th>
+                                <td>Diagnose issues, select methods and produce defensible analysis</td>
+                                <td>Analyze operational problems and their cross-functional effects</td>
+                                <td>Design systems, integrate trade-offs and defend strategic choices</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Explore in detail</th>
+                                <td><a class="text-link explore" href="#details" data-credential="cfs">CFS pathway →</a>
+                                </td>
+                                <td><a class="text-link explore" href="#details" data-credential="cp">CP pathway →</a>
+                                </td>
+                                <td><a class="text-link explore" href="#details" data-credential="chscp">ChSCP pathway
+                                        →</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <section id="details">
+            <div class="wrap">
+                <div class="detail-heading">
+                    <p class="eyebrow">Look closer</p>
+                    <h2>What will your credential demonstrate?</h2>
+                    <p>Explore the professional profile, specializations and assessment principles behind each
+                        credential.</p>
+                </div>
+                <div class="tabs" role="tablist" aria-label="Credential details"><button class="tab" id="tab-cfs"
+                        role="tab" aria-selected="true" aria-controls="panel-cfs" data-tab="cfs">CFS <span>· Functional
+                            Specialist</span></button><button class="tab" id="tab-cp" role="tab" aria-selected="false"
+                        aria-controls="panel-cp" tabindex="-1" data-tab="cp">CP <span>·
+                            Professional</span></button><button class="tab" id="tab-chscp" role="tab"
+                        aria-selected="false" aria-controls="panel-chscp" tabindex="-1" data-tab="chscp">ChSCP <span>·
+                            Chartered</span></button></div>
+                <div class="panel" id="panel-cfs" role="tabpanel" aria-labelledby="tab-cfs" tabindex="0">
+                    <div class="panel-side"><span class="tag">CFS / Functional expertise</span>
+                        <h3>Build recognition around your specialist strength.</h3>
+                        <p>For practitioners who solve complex problems within a defined function and can explain the
+                            reasoning behind their decisions.</p>
+                        <p><strong>Competency focus</strong><br>Level 3 · Analytical capability</p><a class="btn gold"
+                            href="#guidance">Discuss your fit <span aria-hidden="true">→</span></a>
+                    </div>
+                    <div class="panel-main">
+                        <h4>What you should demonstrate</h4>
+                        <ul>
+                            <li>Diagnose functional problems using relevant evidence.</li>
+                            <li>Select suitable methods and interpret incomplete information.</li>
+                            <li>Develop recommendations supported by clear reasoning.</li>
+                        </ul>
+                        <h4>Available specializations</h4>
+                        <div class="chips"><span class="chip">Demand &amp; Supply Planning</span><span
+                                class="chip">Supply Chain Analytics</span><span class="chip">Production and Operations
+                                Planning</span><span class="chip">Integrated Business Planning</span><span
+                                class="chip">Supply Chain Network Design</span><span class="chip">Supply Chain Cost
+                                Management</span><span class="chip">Quality and Supplier Performance</span></div>
+                        <div class="assessment">
+                            <h4>Assessment principle</h4>
+                            <p>Applied scenarios and analytical reasoning should establish competence in the selected
+                                units. The applicable credential specification determines the exact requirements.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel" id="panel-cp" role="tabpanel" aria-labelledby="tab-cp" tabindex="0" hidden>
+                    <div class="panel-side"><span class="tag">CP / Professional practice</span>
+                        <h3>Connect functions. Deliver operational outcomes.</h3>
+                        <p>For professionals who manage processes, projects, teams or suppliers and understand how
+                            decisions affect the wider supply chain.</p>
+                        <p><strong>Competency focus</strong><br>Level 3 in core domains<br>Level 2 in other domains</p>
+                        <a class="btn gold" href="#guidance">Discuss your fit <span aria-hidden="true">→</span></a>
+                    </div>
+                    <div class="panel-main">
+                        <h4>What you should demonstrate</h4>
+                        <ul>
+                            <li>Apply supply chain methods to practical operational challenges.</li>
+                            <li>Analyze service, cost, inventory, supplier and risk implications.</li>
+                            <li>Make ethical, evidence-informed recommendations across functions.</li>
+                        </ul>
+                        <h4>Available specializations</h4>
+                        <div class="chips"><span class="chip">Procurement &amp; Sourcing</span><span
+                                class="chip">Logistics &amp; Transportation</span><span class="chip">Inventory &amp;
+                                Warehousing</span><span class="chip">Global Trade &amp; Compliance</span><span
+                                class="chip">Contract and Commercial Management</span><span class="chip">Distribution
+                                and Channel Management</span><span class="chip">Freight and Carrier
+                                Management</span><span class="chip">Sustainable and Green Supply Chain</span><span
+                                class="chip">Supply Chain Project Management</span></div>
+                        <div class="assessment">
+                            <h4>Assessment principle</h4>
+                            <p>Evidence should demonstrate applied competence and analysis across the relevant domains,
+                                following the published assessment and eligibility rules.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel" id="panel-chscp" role="tabpanel" aria-labelledby="tab-chscp" tabindex="0" hidden>
+                    <div class="panel-side"><span class="tag">ChSCP / Strategic leadership</span>
+                        <h3>Turn enterprise complexity into defensible decisions.</h3>
+                        <p>For experienced leaders integrating strategy, operations, finance and governance across
+                            organizational boundaries.</p>
+                        <p><strong>Competency focus</strong><br>Level 4 · Architectural capability<br>Across the
+                            majority of domains</p><a class="btn gold" href="#guidance">Discuss your fit <span
+                                aria-hidden="true">→</span></a>
+                    </div>
+                    <div class="panel-main">
+                        <h4>What you should demonstrate</h4>
+                        <ul>
+                            <li>Design networks, operating models, policies or governance systems.</li>
+                            <li>Balance service, cost, cash, risk and sustainability trade-offs.</li>
+                            <li>Defend enterprise decisions under uncertainty.</li>
+                            <li>Translate analysis into adoption and sustained change.</li>
+                        </ul>
+                        <h4>Suitable professional profiles</h4>
+                        <div class="chips"><span class="chip">Supply chain directors</span><span class="chip">Senior
+                                functional leaders</span><span class="chip">Transformation leaders</span><span
+                                class="chip">Network and operating-model architects</span><span
+                                class="chip">Cross-functional program leaders</span></div>
+                        <div class="assessment">
+                            <h4>Evidence route</h4>
+                            <p>Advanced case analysis, portfolio evidence, professional discussion and verified
+                                experience may form part of the route, as defined by the approved handbook.
+                                Selected-response testing alone does not establish architectural competence.</p>
+                        </div>
+                        <p style="font-size:11px;margin:20px 0 0">This is a private professional designation. Title and
+                            post-nominal use follow CISCM policy; it is not a governmental or statutory charter.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="journey" id="journey">
+            <div class="wrap">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">A clear way forward</p>
+                        <h2>Your route to recognition.</h2>
+                    </div>
+                    <p>Start with the standard. Build your capability. Demonstrate the result.</p>
+                </div>
+                <div class="steps">
+                    <article class="step">
+                        <div class="step-number">01 <span aria-hidden="true">→</span></div>
+                        <h3>Choose your pathway</h3>
+                        <p>Review the Body of Knowledge and assess your capability against the relevant performance
+                            criteria.</p>
+                    </article>
+                    <article class="step">
+                        <div class="step-number">02 <span aria-hidden="true">→</span></div>
+                        <h3>Check your readiness</h3>
+                        <p>Review eligibility and evidence requirements. Close priority gaps through a suitable
+                            preparation route.</p>
+                    </article>
+                    <article class="step">
+                        <div class="step-number">03 <span aria-hidden="true">→</span></div>
+                        <h3>Demonstrate competence</h3>
+                        <p>Submit the required application and complete the approved assessments and evidence
+                            components.</p>
+                    </article>
+                    <article class="step">
+                        <div class="step-number">04 <span aria-hidden="true">✦</span></div>
+                        <h3>Maintain your standing</h3>
+                        <p>Following a successful award, meet the applicable professional development and renewal
+                            requirements.</p>
+                    </article>
+                </div>
+                <p class="journey-note">Preparation may include work experience, self-study, employer programs or
+                    recognized learning providers. The applicable certification handbook governs eligibility, assessment
+                    and renewal.</p>
+            </div>
+        </section>
+        <section id="faq">
+            <div class="wrap faq-grid">
+                <div class="faq-intro">
+                    <p class="eyebrow">Useful answers</p>
+                    <h2>A little clarity.<br>A confident next step.</h2>
+                    <p>Understand the pathway before you choose your credential.</p><a class="text-link"
+                        href="#guidance">Get individual guidance →</a>
+                </div>
+                <div>
+                    <details open>
+                        <summary>Which credential is right for me?</summary>
+                        <p>Start with the scope of your role and the evidence you can provide. CFS emphasizes functional
+                            depth; CP emphasizes connected operational practice; ChSCP emphasizes system design and
+                            enterprise judgement. Check the applicable eligibility criteria before applying.</p>
+                    </details>
+                    <details>
+                        <summary>Do I have to complete a particular training course?</summary>
+                        <p>The credential framework does not prescribe one compulsory preparation route. Employment,
+                            self-study and structured learning may all contribute. Assessment and eligibility
+                            requirements still apply.</p>
+                    </details>
+                    <details>
+                        <summary>Does certification automatically include membership?</summary>
+                        <p>No automatic equivalence should be assumed. Certification and membership recognize different
+                            things, and the applicable policies determine whether either includes additional status or
+                            benefits.</p>
+                    </details>
+                    <details>
+                        <summary>How will my competence be assessed?</summary>
+                        <p>Methods should match the proficiency claimed. They may include scenarios, applied cases,
+                            practical evidence, portfolios or professional discussion, depending on the approved
+                            credential specification.</p>
+                    </details>
+                    <details>
+                        <summary>Where can I confirm fees, eligibility and renewal rules?</summary>
+                        <p>Request the current credential specification and certification handbook from CISCM. Confirm
+                            fees, assessment arrangements, reassessment and renewal terms before making an application.
+                        </p>
+                    </details>
+                </div>
+            </div>
+        </section>
+        <section class="cta" id="guidance">
+            <div class="wrap">
+                <div class="cta-inner">
+                    <div>
+                        <p class="eyebrow" style="margin-bottom:10px">Take the next step</p>
+                        <h2>Find the credential that fits your ambition.</h2>
+                        <p>Review the official credential information and request guidance from CISCM.</p>
+                    </div><a class="btn" href="https://ciscm.us/credentials" target="_blank" rel="noopener">Visit
+                        official credential page <span aria-hidden="true">↗</span></a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="wrap">
+            <div class="footer-grid">
+                <div class="footer-about"><a class="brand" href="#main"><span class="brandmark"
+                            aria-hidden="true">✦</span><span><span class="brandname">CISCM</span><small>Chartered
+                                Institute of<br>Supply Chain Management</small></span></a>
+                    <p>Chartered Institute of Supply Chain Management LLC is a Texas-registered independent professional
+                        organization focused on supply chain, logistics, procurement and operations management.</p>
+                </div>
+                <div>
+                    <h4>Explore</h4><a href="#credentials">Professional credentials</a><a href="#compare">Compare
+                        pathways</a><a href="#details">Credential details</a><a href="#journey">Candidate journey</a>
+                </div>
+                <div>
+                    <h4>Helpful information</h4><a href="#faq">Frequently asked questions</a><a
+                        href="#guidance">Eligibility guidance</a><a href="https://ciscm.us/credentials" target="_blank"
+                        rel="noopener">Official CISCM website ↗</a>
+                </div>
+            </div>
+            <div class="footer-bottom"><span>© 2026 Chartered Institute of Supply Chain Management
+                    LLC.</span><span>Design preview · Illustrative badge artwork · Confirm current award policies with
+                    CISCM.</span></div>
+        </div>
+    </footer>
+    <script>
+        const tabs = [...document.querySelectorAll('[data-tab]')];
+        function selectTab(id, focus = false) { tabs.forEach(t => { const on = t.dataset.tab === id; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; document.getElementById('panel-' + t.dataset.tab).hidden = !on; if (on && focus) t.focus() }) }
+        tabs.forEach((tab, i) => { tab.addEventListener('click', () => selectTab(tab.dataset.tab)); tab.addEventListener('keydown', e => { let n; if (e.key === 'ArrowRight') n = (i + 1) % tabs.length; if (e.key === 'ArrowLeft') n = (i + tabs.length - 1) % tabs.length; if (e.key === 'Home') n = 0; if (e.key === 'End') n = tabs.length - 1; if (n !== undefined) { e.preventDefault(); selectTab(tabs[n].dataset.tab, true) } }) });
+        document.querySelectorAll('[data-credential]').forEach(link => link.addEventListener('click', () => selectTab(link.dataset.credential)));
+        const menu = document.querySelector('.menu'), nav = document.querySelector('.links'); menu.addEventListener('click', () => { const open = menu.getAttribute('aria-expanded') !== 'true'; menu.setAttribute('aria-expanded', String(open)); nav.classList.toggle('open', open) }); nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); menu.setAttribute('aria-expanded', 'false') })); document.addEventListener('keydown', e => { if (e.key === 'Escape' && nav.classList.contains('open')) { nav.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); menu.focus() } });
+    </script>
+</body>
+
+</html>
